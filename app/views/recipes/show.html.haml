@@ -1,0 +1,27 @@
+.row
+	.col-md-12
+		=image_tag @recipe.photo
+		%p
+		%strong Title:
+		= @recipe.title
+		%p
+		%strong Category:
+		
+		= @recipe.category
+		%p
+		%strong Description:
+		= @recipe.description
+		%p
+		- if @ingredients.present?
+			%p
+			%table
+				%tr
+					%th Item
+					%th Amount
+					%th Unit
+				- @ingredients.each do |i|
+					%tr
+						%td= i.item
+						%td= i.amount
+						%td= i.unit
+		= link_to "Add Ingredients", new_ingredient_url(recipe_id: @recipe.id)

@@ -1,0 +1,12 @@
+%h2
+  Please add your Ingredients for #{@recipe.title}
+=image_tag @recipe.photo.url(:thumb) 
+= form_tag ingredients_path, method: :post do
+  = hidden_field_tag :recipe_id, @recipe.id
+  .row
+    - 3.times do |i|
+      .col-md-4= text_field_tag "item_#{i}", "", placeholder: "item"
+      .col-md-4= text_field_tag "amount_#{i}","", placeholder: "amount"
+      .col-md-4= text_field_tag "unit_#{i}", "", placeholder: "unit"
+   
+  = submit_tag "Save"
