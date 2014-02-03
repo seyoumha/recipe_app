@@ -1,0 +1,7 @@
+%h1 Your Recipes
+.container
+  - @recipes.each do |r|
+    .col-md-4
+      = link_to r.title, recipe_path(r.id)
+    .col-md-6      
+      = image_tag r.photo.url(:thumb)

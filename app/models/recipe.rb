@@ -17,6 +17,13 @@ class Recipe < ActiveRecord::Base
 	mount_uploader :photo, PhotoUploader
 	has_many :ingredients
 	belongs_to :user
-	
+
+	def self.search(search)
+		if search
+			where("title LIKE ?", "%#{search}%")
+    else
+      find(:all)
+    end
+  end
 
 end
