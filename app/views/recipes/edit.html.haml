@@ -1,0 +1,24 @@
+.row
+	.col-lg-6
+		.well
+			= form_for @recipe, :html => {:class => 'form-horizontal',:multipart => true}  do |f|
+				%fieldset
+					.form-group
+						= f.label :category, class: 'col-lg-2 control-label'
+						.col-lg-10
+							= f.text_field :category, class: 'form-control'
+					.form-group
+						= f.label :title, class: 'col-lg-2 control-label'
+						.col-lg-10
+							= f.text_field :title, class: 'form-control'
+					.form-group
+						= f.label :photo, class: 'col-lg-2 control-label'
+						.col-lg-10
+							= f.file_field :photo, class: 'form-control'
+					.form-group
+						= f.label :description, class: 'col-lg-2 control-label'
+						.col-lg-10
+							= f.text_area :description, class: 'form-control', placeholder: "Explain your recipe"
+					.form-group
+						.col-lg-12
+							= f.submit class: 'btn btn-success btn-md btn-block'

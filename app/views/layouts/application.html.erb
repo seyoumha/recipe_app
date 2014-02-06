@@ -11,13 +11,17 @@
 	<div class = "navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class = "navbar-header">
-				<a href="/recipes/new" class="navbar-brand">in<span style='color: #ff8200'>2</span><b>food</b></a>
+				<a href='<%=root_path%>' class="navbar-brand">in<span style='color: #ff8200'>2</span><b>food</b></a>
 			</div>
 				
 			<div class="navbar-collapse collapse navbar-inverse-collapse">
 				<ul class = "nav navbar-nav">
-					<li > <%= link_to "Create a Recipe", new_recipe_path %> 
-					<li > <%= link_to "My Recipes", recipes_path %> 
+					<li > <%= link_to "Create a Recipe", new_recipe_path %>
+					<% if user_signed_in? %>
+						<li > <%= link_to "My Recipes", recipes_path %> 
+					<% else %>	
+						<li > <%= link_to "Recipes", recipes_path %> 
+					<%end%>
 					<li > <%= link_to "Shopping List", new_recipe_path %> 
 					<li > <%= link_to "Recipe", new_recipe_path %> 
         </ul>
@@ -25,13 +29,19 @@
 					<% if user_signed_in? %>
 						<li> <%= link_to current_user.first_name.humanize, "#" %></li>
 						<li> <%= link_to "Sign Out", destroy_user_session_path, :method=>:delete %> </li>
-            <li><%= form_tag recipes_path, :method => 'get' do %>
-               <%= text_field_tag :search, params[:search], :class=>"fcol-lg-3" %>
-                <%= submit_tag "Search", :name => nil %>
-             <% end %>
-            </li>
+            			<li>
+            				<p>
+            					<%= form_tag recipes_path, :method => 'get' do %>
+               					<%= text_field_tag :search, params[:search], :class=>"fcol-lg-3", :placeholder=>"Search for Recipes" %>
+             					<% end %>		
+             				</p>  
+            			</li>
 					<% else %>
 						<li > <%= link_to "Sign In", new_user_session_path %> </li>
+						<li><p><%= form_tag recipes_path, :method => 'get' do %>
+               <%= text_field_tag :search, params[:search], :class=>"fcol-lg-3", :placeholder=>"Search for Recipes" %>
+             <% end %></p>  
+            </li>
 					<% end %>
 				</ul>	
 			</div>	

@@ -1,10 +1,12 @@
 RecipeApp::Application.routes.draw do
   devise_for :users
+  post 'ingredients/update' => 'ingredients#update'#, as: :edit_ingredients
+  get 'ingredients/edit' => 'ingredients#edit'
   resources :recipes
   resources :ingredients
-  
 
-  root :to => "recipes#new"
+
+  root :to => "page#index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -1,0 +1,14 @@
+%h2
+  Please edit your Ingredients for #{@recipe.title}
+=image_tag @recipe.photo.url(:thumb) 
+= form_tag ingredients_update_path do
+  = hidden_field_tag :recipe_id, @recipe.id
+  .row
+    - @recipe.ingredients.each_with_index do |ingredient,i|
+      = hidden_field_tag "ingredient_#{i}", ingredient.id
+      .col-md-5= text_field_tag "item_#{i}", ingredient.item, placeholder: "item", class: "form-control"
+      .col-md-2= text_field_tag "amount_#{i}",ingredient.amount, placeholder: "amount", class: "form-control"
+      .col-md-5= text_field_tag "unit_#{i}", ingredient.unit, placeholder: "unit", class: "form-control"
+  .row 
+    .col-md-5.col-md-offset-3
+      = submit_tag "update", class: "btn btn-block btn-success"

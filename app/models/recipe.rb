@@ -18,6 +18,8 @@ class Recipe < ActiveRecord::Base
 	has_many :ingredients
 	belongs_to :user
 
+	validates :title, :category, :description, presence: true 
+	
 	def self.search(search)
 		if search
 			where("title LIKE ?", "%#{search}%")

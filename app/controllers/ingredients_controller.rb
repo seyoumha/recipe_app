@@ -1,8 +1,6 @@
 class IngredientsController < ApplicationController
-	def index
-		@ingredient = Ingredient.all
-	end
-
+	before_filter :authenticate_user!
+	
 	def show
 		@ingredient = Ingredient.find(params[:id])
 	end
@@ -32,6 +30,24 @@ class IngredientsController < ApplicationController
 
 		redirect_to @recipe
 
+	end
+	def edit
+		@recipe = Recipe.find(params[:recipe_id])
+		
+	end
+	def update
+		@recipe = Recipe.find(params[:recipe_id])
+		@recipe.ingredients.count.times do |i|
+			ingredient = Ingredient.find(params["ingredient_#{i}".to_sym ])
+			ingredient.item = params["item_#{i}".to_sym]
+			ingredient.unit = params["unit_#{i}".to_sym]
+			ingredient.amount = params["amount_#{i}".to_sym]
+			ingredient.save
+		end
+		redirect_to recipe_path(@recipe)
+		# @ingredient.recipe = @recipe
+		# @ingredient.update(ingredient_params)
+		# redirect_to @recipe
 	end
 	
 	private

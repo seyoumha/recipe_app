@@ -1,7 +1,16 @@
-%h1 Your Recipes
+- if @search_recipe
+	%h1 Search result for #{@search_recipe}
+-elsif current_user
+	%h1 Your Recipes
+-else
+	%h1 Recipe List
 .container
-  - @recipes.each do |r|
-    .col-md-4
-      = link_to r.title, recipe_path(r.id)
-    .col-md-6      
-      = image_tag r.photo.url(:thumb)
+	- @recipes.each do |r|
+		.well
+			.row
+				.col-md-8
+					%h2=link_to r.title.titleize, recipe_path(r.id)
+					= r.description
+				.col-md-4= image_tag r.photo.url(:thumb)
+
+

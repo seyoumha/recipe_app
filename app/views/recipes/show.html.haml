@@ -24,4 +24,10 @@
 						%td= i.item
 						%td= i.amount
 						%td= i.unit
-		= link_to "Add Ingredients", new_ingredient_url(recipe_id: @recipe.id)
+		-if user_signed_in? && @ingredients.present?
+			= link_to "Edit Ingredients   |   ", ingredients_edit_path(recipe_id: @recipe.id)
+			=link_to "Edit Recipe ", edit_recipe_path
+		- elsif user_signed_in? 
+			= link_to "Add Ingredients   | ", new_ingredient_url(recipe_id: @recipe.id)
+			=link_to " Edit Recipe ", edit_recipe_path
+
