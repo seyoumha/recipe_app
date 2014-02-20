@@ -37,6 +37,7 @@
              				</p>  
             			</li>
 					<% else %>
+						<li><span class="btn btn-warning" > <%= link_to "Join", new_user_registration_path %> </span></li>
 						<li > <%= link_to "Sign In", new_user_session_path %> </li>
 						<li><p><%= form_tag recipes_path, :method => 'get' do %>
                <%= text_field_tag :search, params[:search], :class=>"fcol-lg-3", :placeholder=>"Search for Recipes" %>
