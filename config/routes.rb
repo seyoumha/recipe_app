@@ -1,9 +1,19 @@
 RecipeApp::Application.routes.draw do
+  resources :comments
+
+  resources :coments
+
   devise_for :users
   post 'ingredients/update' => 'ingredients#update'#, as: :edit_ingredients
   get 'ingredients/edit' => 'ingredients#edit'
-  resources :recipes
+  resources :recipes do
+    resources :comments
+    member do
+      put :favorite
+    end
+  end
   resources :ingredients
+  
 
 
   root :to => "page#index"

@@ -17,6 +17,9 @@ class Recipe < ActiveRecord::Base
 	mount_uploader :photo, PhotoUploader
 	has_many :ingredients
 	belongs_to :user
+	has_many :comments
+	has_many :favorite_recipes
+	has_many :user_favorited, through: :favorite_recipes, source: :user
 
 	validates :title, :category, :description, presence: true 
 	

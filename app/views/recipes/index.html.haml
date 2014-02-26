@@ -1,7 +1,11 @@
 - if @search_recipe
-	%h1 Search result for #{@search_recipe}
+	%h4 Search result for #{@search_recipe}
 -elsif current_user
-	%h1 Your Recipes
+	%h4 Your favorite Recipes
+	.container
+	.well
+		= render "favorite_recipe"
+	%h4 Your Recipes
 -else
 	%h1 Recipe List
 .container
@@ -12,5 +16,6 @@
 					%h2=link_to r.title.titleize, recipe_path(r.id)
 					= r.description
 				.col-md-4= image_tag r.photo.url(:thumb)
+
 
 

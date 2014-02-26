@@ -26,6 +26,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   after_create :send_welcome_email
   has_many :recipes
+  has_many :favorite_recipes
+  has_many :favorites, through: :favorite_recipes, source: :recipe
 	def send_welcome_email
 		UserMailer.welcome_email(self).deliver
 	end

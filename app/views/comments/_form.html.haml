@@ -1,0 +1,12 @@
+= form_for ([@recipe, @recipe.comments.build]) do |f|
+  .container
+    .col-md-4
+      .well
+        .field
+          = f.label :commenter
+          = f.text_field :commenter
+        .field
+          = f.label :body
+          = f.text_area :body
+        .actions
+          = f.submit 'Save'

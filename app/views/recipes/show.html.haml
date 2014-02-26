@@ -11,6 +11,15 @@
 		%p
 		%strong Description:
 		= @recipe.description
+		-if user_signed_in?
+			%h5
+				-if current_user.favorites.include? @recipe
+					= link_to "Delete from Favorite", favorite_recipe_path(@recipe, type: "unfavorite"), method: :put 
+				-else
+					= link_to "Add to Favorite", favorite_recipe_path(@recipe, type: "favorite"), method: :put
+		-else
+			%h5
+				= link_to "Sign in to Add to Favorite", new_user_session_path
 		%p
 		- if @ingredients.present?
 			%p
@@ -24,10 +33,13 @@
 						%td= i.item
 						%td= i.amount
 						%td= i.unit
-		-if user_signed_in? && @ingredients.present?
-			= link_to "Edit Ingredients   |   ", ingredients_edit_path(recipe_id: @recipe.id)
+		-if @recipe.user == current_user
+			-if @ingredients.present?
+				= link_to "Edit Ingredients   |   ", ingredients_edit_path(recipe_id: @recipe.id)
+			-else
+				= link_to "Add Ingredients   | ", new_ingredient_url(recipe_id: @recipe.id)
 			=link_to "Edit Recipe ", edit_recipe_path
-		- elsif user_signed_in? 
-			= link_to "Add Ingredients   | ", new_ingredient_url(recipe_id: @recipe.id)
-			=link_to " Edit Recipe ", edit_recipe_path
-
+%h4 Comments
+= render @recipe.comments
+%h4 Add a comment:
+= render "comments/form"

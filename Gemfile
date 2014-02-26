@@ -6,6 +6,7 @@ gem 'haml-rails'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'devise'
+gem 'acts_as_commentable'
 
 # Use sqlite3 as the database for Active Record
 group :development do
