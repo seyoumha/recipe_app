@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20140225191812) do
     t.string   "category"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "avatar"
     t.string   "photo"
     t.integer  "user_id",     default: 0, null: false
   end

@@ -54,6 +54,11 @@ class RecipesController < ApplicationController
 		@recipe.update(recipe_params)
 		redirect_to @recipe, notice: 'Your recipe is updated'
 	end
+	def destroy
+		@recipe = Recipe.find(params[:id])
+		@recipe.destroy
+		redirect_to @recipe, notice: "Your recipe is deleted"
+	end
 	
 	private
 

@@ -25,10 +25,14 @@ class Recipe < ActiveRecord::Base
 	
 	def self.search(search)
 		if search
-			where("title LIKE ?", "%#{search}%")
-    else
-      find(:all)
-    end
-  end
+			where("title LIKE ? or category LIKE ?", "%#{search}%", "%#{search}%")
+    	else
+      		find(:all)
+    	end
+  	end
+
+  	def keywords
+  		category.split(",") if category
+  	end
 
 end

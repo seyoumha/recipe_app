@@ -12,7 +12,7 @@ gem 'acts_as_commentable'
 group :development do
 	gem 'sqlite3', '1.3.8'
 end
-group :production, :staging do
+group :production  do
   gem "pg"
   gem 'rails_12factor'
 

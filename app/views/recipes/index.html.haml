@@ -15,6 +15,7 @@
 				.col-md-8
 					%h2=link_to r.title.titleize, recipe_path(r.id)
 					= r.description
+					= link_to "delete", recipe_path(r.id), method: :delete
 				.col-md-4= image_tag r.photo.url(:thumb)
 
 

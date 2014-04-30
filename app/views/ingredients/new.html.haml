@@ -3,10 +3,10 @@
 =image_tag @recipe.photo.url(:thumb) 
 = form_tag ingredients_path, method: :post do
   = hidden_field_tag :recipe_id, @recipe.id
-  .row
-    - 3.times do |i|
+  - 3.times do |i|
+    .row
       .col-md-4= text_field_tag "item_#{i}", "", placeholder: "item"
       .col-md-4= text_field_tag "amount_#{i}","", placeholder: "amount"
-      .col-md-4= text_field_tag "unit_#{i}", "", placeholder: "unit"
-   
+      .col-md-4= select_tag "unit_#{i}", options_for_select(units)
+       
   = submit_tag "Save"

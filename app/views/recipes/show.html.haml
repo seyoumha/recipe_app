@@ -1,13 +1,10 @@
 .row
 	.col-md-12
 		=image_tag @recipe.photo
-		%p
-		%strong Title:
-		= @recipe.title
-		%p
+		%h2= @recipe.title
 		%strong Category:
-		
-		= @recipe.category
+		- @recipe.keywords.each do |word|
+			%span.label.label-info= word
 		%p
 		%strong Description:
 		= @recipe.description
