@@ -15,8 +15,9 @@ class IngredientsController < ApplicationController
 
 	def create
 		@recipe = Recipe.find(params[:recipe_id])
+		count = params[:count].to_i
 		#Ingredient.new item: 'onion', amount: '2', unit: 'small' 
-		3.times do |i| 
+		count.times do |i| 
 			item = "item_#{i}".to_sym
 			amount = "amount_#{i}".to_sym
 			unit =  "unit_#{i}".to_sym

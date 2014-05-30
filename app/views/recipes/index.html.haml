@@ -3,8 +3,8 @@
 -elsif current_user
 	%h4 Your favorite Recipes
 	.container
-	.well
-		= render "favorite_recipe"
+		.well
+			= render "favorite_recipe"
 	%h4 Your Recipes
 -else
 	%h1 Recipe List
@@ -12,11 +12,13 @@
 	- @recipes.each do |r|
 		.well
 			.row
-				.col-md-8
+				.col-md-7
 					%h2=link_to r.title.titleize, recipe_path(r.id)
 					= r.description
-					= link_to "delete", recipe_path(r.id), method: :delete
-				.col-md-4= image_tag r.photo.url(:thumb)
+				.col-md-2= image_tag r.photo.url(:thumb)
+				-if current_user
+					.col-md-2
+						%h5= link_to "Delete Recipe", recipe_path(r.id), method: :delete
 
 
 

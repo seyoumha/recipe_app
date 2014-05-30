@@ -13,7 +13,9 @@ RecipeApp::Application.routes.draw do
     end
   end
   resources :ingredients
-  
+  get 'cart/add/:id' => 'shopping_lists#add', as: :add_to_cart
+  get 'shopping_lists/index'=> 'shopping_lists#index', as: :shopping_lists
+  put 'shopping_lists/clear'=> 'shopping_lists#remove', as: :remove_from_cart
 
 
   root :to => "page#index"

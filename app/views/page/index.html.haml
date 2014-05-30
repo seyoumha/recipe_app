@@ -1,44 +1,58 @@
-=render 'slider' 
 .container
-  .row
-    .col-md-12
-      %h2 
-        in
-        %span{style: 'color: #ff8200'}2
-        food      
-.container
-  .row
-    .col-md-12
-      %ul.nav.nav-tabs{style: "margin-bottom: 15px;"}
-        %li.active 
-          =link_to "Breakfast Recipeis" 
-        %li 
-          =link_to "Lunch Recipeis"
-        %li 
-          =link_to "Dinner Recipeis"
-        %li
-          =link_to "Desert Recipeis" 
-        %li
-          =link_to "Drinks Recipeis" 
-    .col-md-4
-      .well
-        .row
-          .col-md-12
-            .well
-              picture
-    .col-md-4
-      .well
-        The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.
-    .col-md-4
-      .well
-        The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.    
-  .row
-    .col-md-4
-      .well
-        The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.
-    .col-md-4
-      .well
-        The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.
-    .col-md-4
-      .well
-        The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.
+	.row
+		.col-md-2
+			.sidebar.hidden-print.affix
+				%ul.nav.list-unstyled
+					%li.list-group-item						
+						%h4 Explore Recipes
+						%ul.nav.nav-pills
+						- @tags.each do |tag,count|
+							%li
+								%a{href: "#{recipes_path(search: tag)}"}
+									.tag{style: "width:175px"}
+										=tag
+										%span.badge.pull-right
+											=count	
+					 		
+		.col-md-10
+			.container	
+				=render 'slider' 
+			.container
+				.row
+					.col-md-12
+						%h2 
+							in
+							%span{style: 'color: #ff8200'}2
+							food      
+			.container
+				.row
+					.col-md-4
+						.well
+							The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.
+					.col-md-4
+						.well
+							The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.
+					.col-md-4
+						.well
+							The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.
+				.row
+					.col-md-4
+						.well
+							The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.
+					.col-md-4
+						.well
+							=image_tag"/assets/plugins/parallax-slider/img/kitfo.jpg"
+					.col-md-4
+						.well
+							The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.
+				.row
+					.col-md-4
+						.well
+							=image_tag"/assets/plugins/parallax-slider/img/sushi.jpg"
+					.col-md-4
+						.well
+							The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.
+					.col-md-4
+						.well
+							=image_tag"/assets/plugins/parallax-slider/img/veggie.jpg"			
+

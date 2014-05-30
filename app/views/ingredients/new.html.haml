@@ -3,10 +3,23 @@
 =image_tag @recipe.photo.url(:thumb) 
 = form_tag ingredients_path, method: :post do
   = hidden_field_tag :recipe_id, @recipe.id
-  - 3.times do |i|
-    .row
-      .col-md-4= text_field_tag "item_#{i}", "", placeholder: "item"
+  = hidden_field_tag :count, ""
+  - 5.times do |i|
+    .row.items
+      .col-md-4= text_field_tag "item_#{i}", "", placeholder: "item", class: "item_name"
       .col-md-4= text_field_tag "amount_#{i}","", placeholder: "amount"
       .col-md-4= select_tag "unit_#{i}", options_for_select(units)
        
   = submit_tag "Save"
+
+:javascript
+
+  $("input[type='submit']").click(function(ev){
+    //ev.preventDefault();
+    var count = $(".item_name").filter(function(){
+      return $(this).val() != ''
+    }).length;
+    //select hidden field
+    $('#count').val(count);
+    //set its value to count
+  });

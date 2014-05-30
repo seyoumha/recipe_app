@@ -22,6 +22,9 @@ class Recipe < ActiveRecord::Base
 	has_many :user_favorited, through: :favorite_recipes, source: :user
 
 	validates :title, :category, :description, presence: true 
+	before_save do 
+		self.category = self.category.titleize if self.category
+	end
 	
 	def self.search(search)
 		if search
@@ -31,8 +34,8 @@ class Recipe < ActiveRecord::Base
     	end
   	end
 
-  	def keywords
-  		category.split(",") if category
+  	def tags
+  		category.gsub(' ', '').split(",") if category
   	end
 
 end
