@@ -1,24 +1,29 @@
+.navbar-right
+	%h3
+		=link_to "Grid View   |   ","#", class: 'grid-view'
+		=link_to "   List View","#", class: 'list-view'
 - if @search_recipe
 	%h4 Search result for #{@search_recipe}
 -elsif current_user
 	%h4 Your favorite Recipes
 	.container
-		.well
-			= render "favorite_recipe"
+		- @favorite_recipes.each do |r|
+			= render "recipe", r: r
 	%h4 Your Recipes
 -else
 	%h1 Recipe List
 .container
 	- @recipes.each do |r|
-		.well
-			.row
-				.col-md-7
-					%h2=link_to r.title.titleize, recipe_path(r.id)
-					= r.description
-				.col-md-2= image_tag r.photo.url(:thumb)
-				-if current_user
-					.col-md-2
-						%h5= link_to "Delete Recipe", recipe_path(r.id), method: :delete
+		= render "recipe", r: r
+
+:javascript
+
+$(document).ready(function(){
+	$('.grid-view').on('click', function(e){
+		e.preventDefault();
+		$('.recipe.list').removeClass('list').addClass('grid');
+	});
+});						
 
 
 

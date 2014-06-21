@@ -38,10 +38,6 @@
 							%td= i.unit
 							%td= link_to "Add", add_to_cart_path(i)
 			-if @recipe.user == current_user
-				-if @ingredients.present?
-					= link_to "Edit Ingredients   |   ", ingredients_edit_path(recipe_id: @recipe.id)
-				-else
-					= link_to "Add Ingredients   | ", new_ingredient_url(recipe_id: @recipe.id)
 				=link_to "Edit Recipe ", edit_recipe_path
 .container
 	.col-md-10	

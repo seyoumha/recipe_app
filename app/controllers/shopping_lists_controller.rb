@@ -2,7 +2,7 @@ class ShoppingListsController < ApplicationController
   
   def index
     if session[:shopping_list]
-      @shopping_list = Ingredient.find(session[:shopping_list])
+      @shopping_list = Ingredient.where(id: session[:shopping_list])
     end
   end
 
@@ -15,9 +15,12 @@ class ShoppingListsController < ApplicationController
 
   
   def remove
-    session.delete(:shopping_list)
+    if params[:id]
+      session[:shopping_list].delete(params[:id].to_i)
+    else
+      session.delete(:shopping_list)
+    end
     redirect_to shopping_lists_path
-    
   end
 
   

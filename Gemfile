@@ -12,6 +12,7 @@ gem 'acts_as_commentable'
 group :development do
 	gem 'sqlite3', '1.3.8'
 	gem 'pry'
+	gem 'awesome_print'
 end
 group :production  do
   gem "pg"

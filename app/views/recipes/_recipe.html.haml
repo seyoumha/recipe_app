@@ -1,0 +1,8 @@
+.recipe.list
+  .info
+    %h2.title=link_to r.title.titleize, recipe_path(r.id)
+    %p.description= r.description
+    -if current_user
+      %h5= link_to "Delete Recipe", recipe_path(r.id), method: :delete
+  = image_tag r.photo.url(:thumb), class: 'image'
+  .clearfix

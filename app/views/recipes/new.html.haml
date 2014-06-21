@@ -1,1 +1,13 @@
 =render "form"
+
+:javascript
+  $(document).ready(function(){
+    $('#new_recipe').submit(function(e){
+      $('input[type="text"]').each(function(){
+        if($(this).val() == ''){
+          $(this).prop('disabled',true);
+          $(this).closest('.ingredient').find('select').prop('disabled',true);
+        }
+       });
+    });
+  });

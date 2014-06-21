@@ -33,14 +33,17 @@ class RecipesController < ApplicationController
 
 	def new
 		@recipe = Recipe.new
+		15.times{@recipe.ingredients.build}
 	end
 	def edit
 		@recipe = Recipe.find(params[:id])
+		10.times{@recipe.ingredients.build}
+		
 	end
 
 	def create
 		@recipe = Recipe.new(recipe_params)
-		@recipe.user = current_user		
+		@recipe.user = current_user	
 		if @recipe.save
 			redirect_to @recipe
 		else
@@ -53,6 +56,7 @@ class RecipesController < ApplicationController
 		@recipe = Recipe.find(params[:id])
 		@recipe.update(recipe_params)
 		redirect_to @recipe, notice: 'Your recipe is updated'
+		
 	end
 	def destroy
 		@recipe = Recipe.find(params[:id])
@@ -63,7 +67,7 @@ class RecipesController < ApplicationController
 	private
 
 		def recipe_params
-			params.require(:recipe).permit(:title, :description, :direction, :category, :photo, :search)
+			params.require(:recipe).permit(:title, :description, :direction, :category, :photo, :search, ingredients_attributes: [:id, :item, :amount, :unit])
 		end
 
 end

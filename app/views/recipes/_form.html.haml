@@ -20,6 +20,41 @@
 						= f.label :description, class: 'col-lg-2 control-label'
 						.col-lg-10
 							= f.text_area :description, class: 'form-control', placeholder: "Explain your recipe"
-					.form-group
-						.col-lg-12
-							= f.submit class: 'btn btn-success btn-md btn-block' 
+					%div
+						.form-group
+							.ingredients
+								= f.fields_for :ingredients do |ff|
+									.ingredient.off
+										= ff.hidden_field :id
+										= ff.label :item
+										= ff.text_field :item
+
+										= ff.label :amount
+										= ff.text_field :amount
+
+										= ff.label :unit
+										= ff.select :unit, options_for_select(units)		
+						.form-group
+							.col-lg-12
+								-if @recipe.ingredients.present?
+									=link_to "Edit Ingredients", "#", class: "add-ingredient"
+								-else
+									=link_to "Add Ingredients","#", class: "add-ingredient"
+						.form-group
+							.col-lg-12
+								= f.submit class: 'save btn btn-success btn-md btn-block'
+						
+:javascript
+
+	$(document).ready(function(){
+		$('.ingredient.off').hide();
+		$('.add-ingredient').on('click',function(event){
+			event.preventDefault();
+			var row = $('.ingredient.off:first') 
+			row.show();
+			row.removeClass('off');
+			row.addClass('on');
+		});
+	});
+
+

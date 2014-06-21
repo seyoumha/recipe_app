@@ -1,25 +1,34 @@
-%h2
-  Please add your Ingredients for #{@recipe.title}
-=image_tag @recipe.photo.url(:thumb) 
-= form_tag ingredients_path, method: :post do
-  = hidden_field_tag :recipe_id, @recipe.id
-  = hidden_field_tag :count, ""
-  - 5.times do |i|
-    .row.items
-      .col-md-4= text_field_tag "item_#{i}", "", placeholder: "item", class: "item_name"
-      .col-md-4= text_field_tag "amount_#{i}","", placeholder: "amount"
-      .col-md-4= select_tag "unit_#{i}", options_for_select(units)
+/ %h2
+/   Please add your Ingredients for #{@recipe.title}
+/ =image_tag @recipe.photo.url(:thumb) 
+/ = form_for :ingredients do |f|
+/   = hidden_field_tag :recipe_id, @recipe.id
+/   = hidden_field_tag :count, ""
+/   = f.fields_for :item do |ff| 
+/     = ff.label :item
+/     = ff.text_field :item
+ 
+/     = ff.label :amount
+/     = ff.text_field :amount
+
+/     = ff.label :unit
+/     = ff.select :unit, options_for_select(units)
+
+/   //.row.items
+/   //.col-md-4= text_field_tag "item_#{i}", "", placeholder: "item", class: "item_name"
+/   //.col-md-4= text_field_tag "amount_#{i}","", placeholder: "amount"
+/   //.col-md-4= select_tag "unit_#{i}", options_for_select(units)
        
-  = submit_tag "Save"
+/   = submit_tag "Save"
 
-:javascript
+/ :javascript
 
-  $("input[type='submit']").click(function(ev){
-    //ev.preventDefault();
-    var count = $(".item_name").filter(function(){
-      return $(this).val() != ''
-    }).length;
-    //select hidden field
-    $('#count').val(count);
-    //set its value to count
-  });
+/   $("input[type='submit']").click(function(ev){
+/     //ev.preventDefault();
+/     var count = $(".item_name").filter(function(){
+/       return $(this).val() != ''
+/     }).length;
+/     //select hidden field
+/     $('#count').val(count);
+/     //set its value to count
+/   });

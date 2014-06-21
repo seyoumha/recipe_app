@@ -28,6 +28,7 @@ GEM
     acts_as_commentable (4.0.1)
     arel (4.0.1)
     atomic (1.1.14)
+    awesome_print (1.2.0)
     bcrypt-ruby (3.1.2)
     builder (3.1.4)
     carrierwave (0.9.0)
@@ -147,6 +148,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_commentable
+  awesome_print
   carrierwave
   coffee-rails (~> 4.0.0)
   devise

@@ -11,6 +11,7 @@
           %td= shopping_list.item
           %td= shopping_list.amount
           %td= shopping_list.unit
+          %td= link_to 'delete', remove_from_cart_path(shopping_list.id), method: :put
       = link_to 'Clear Shopping List', remove_from_cart_path(), method: :put
     -else
       %h4 Your shopping cart is Empty

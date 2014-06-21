@@ -15,7 +15,6 @@
 class Ingredient < ActiveRecord::Base
 	belongs_to :recipe
 
-	
-		
+	validates :item, :amount, :unit, presence: true
 
 end

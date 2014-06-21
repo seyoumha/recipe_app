@@ -15,7 +15,11 @@
 require 'carrierwave/orm/activerecord'
 class Recipe < ActiveRecord::Base
 	mount_uploader :photo, PhotoUploader
+
 	has_many :ingredients
+	accepts_nested_attributes_for :ingredients,
+	:reject_if => :all_blank
+
 	belongs_to :user
 	has_many :comments
 	has_many :favorite_recipes
