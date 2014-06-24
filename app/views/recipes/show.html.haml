@@ -1,48 +1,60 @@
 .container
-	.col-md-6
-		.row
-			.col-md-12
-				=image_tag @recipe.photo
-				%h2= @recipe.title
-				%strong Category:
-				- @recipe.tags.each do |word|
-					%span.label.label-info= word
-				%p
-				%strong Description:
-				= @recipe.description
-				-if user_signed_in?
-					%h5
-						-if current_user.favorites.include? @recipe
-							= link_to "Delete from Favorite", favorite_recipe_path(@recipe, type: "unfavorite"), method: :put 
-						-else
-							= link_to "Add to Favorite", favorite_recipe_path(@recipe, type: "favorite"), method: :put
-				-else
-					%h4
-						= link_to "Sign in to Add to Favorite", new_user_session_path
-	.col-md-6
-		.row
-			%p
-			- if @ingredients.present?
-				%h2 Ingredients for #{@recipe.title}
-				%p
-				%table
-					%tr
-						%th Item
-						%th Amount
-						%th Unit
-						%th
-					- @ingredients.each do |i|
-						%tr
-							%td= i.item
-							%td= i.amount
-							%td= i.unit
-							%td= link_to "Add", add_to_cart_path(i)
-			-if @recipe.user == current_user
-				=link_to "Edit Recipe ", edit_recipe_path
+  .col-md-6
+    .row
+      .col-md-12
+        =image_tag @recipe.photo
+        %h2= @recipe.title
+        %strong Category:
+        - @recipe.tags.each do |word|
+          %span.label.label-info= word
+        %p
+        %strong Description:
+        = @recipe.description
+        -if user_signed_in?
+          %h5
+            -if current_user.favorites.include? @recipe
+              = link_to "Delete from Favorite", favorite_recipe_path(@recipe, type: "unfavorite"), method: :put 
+            -else
+              = link_to "Add to Favorite", favorite_recipe_path(@recipe, type: "favorite"), method: :put
+        -else
+          %h4
+            = link_to "Sign in to Add to Favorite", new_user_session_path
+  .col-md-6
+    .row
+      %p
+        - if @ingredients.present?
+          %h2 Ingredients
+          %table.table.table-striped.table-bordered
+            %tr
+              %th Item
+              %th Amount
+              %th Unit
+              %th
+              - @ingredients.each do |i|
+                %tr
+                  %td= i.item
+                  %td= i.amount
+                  %td= i.unit
+                  %td= link_to " Add to Shopping List", add_to_cart_path(i), class: 'glyphicon glyphicon-shopping-cart'
+        -if @recipe.user == current_user
+          =link_to "Edit Recipe ", edit_recipe_path, class: "btn btn-danger btn-sm"
 .container
-	.col-md-10	
-		%h4 Comments
-		= render @recipe.comments
-		-if user_signed_in?
-			%h4 Add a comment:
-			= render "comments/form"
+  .col-md-6 
+    .well
+      %h4 Reviews
+      = render @recipe.comments
+      -if user_signed_in?
+        %h5 Add Your Reviews:
+        = render "comments/form"
+  .col-md-6
+    .well
+      %h4 Directions
+      %table.table.table-striped.table-bordered
+        %tr
+          %th Order
+          %th Instruction
+          %th
+        - @directions.each do |direction|
+          =render "directions/direction", direction: direction
+      = link_to 'New Direction', new_recipe_direction_path(@recipe), class: "btn btn-success btn-sm"     
+             

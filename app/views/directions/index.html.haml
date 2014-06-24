@@ -1,0 +1,7 @@
+%h4 Directions
+%table
+  %tr
+    %th Order
+    %th Instruction
+  - @directions.each do |direction|
+    =render "directions/direction", direction: direction

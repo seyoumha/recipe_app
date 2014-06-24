@@ -22,7 +22,7 @@
 					<% else %>	
 						<li > <%= link_to "Recipes", recipes_path %> 
 					<%end%>
-					<li > <%= link_to "Shopping List", shopping_lists_path %> 
+					<li> <%= link_to " Shopping List", shopping_lists_path, class: "glyphicon glyphicon-shopping-cart"  %> 
         </ul>
 				<ul class = "nav navbar-nav navbar-right">
 					<% if user_signed_in? %>

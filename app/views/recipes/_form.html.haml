@@ -1,60 +1,83 @@
 .row
-	.col-lg-6
-		.well
-			= form_for @recipe, :html => {:class => 'form-horizontal',:multipart => true}  do |f|
-				= render "shared/error_messages", :target => @recipe
-				%fieldset
-					.form-group
-						= f.label :category, class: 'col-lg-2 control-label'
-						.col-lg-10
-							= f.text_area :category, class: 'form-control', placeholder: "ex. Indian, vegiterian, spicy"
-					.form-group
-						= f.label :title, class: 'col-lg-2 control-label'
-						.col-lg-10
-							= f.text_field :title, class: 'form-control'
-					.form-group
-						= f.label :photo, class: 'col-lg-2 control-label'
-						.col-lg-10
-							= f.file_field :photo, class: 'form-control'
-					.form-group
-						= f.label :description, class: 'col-lg-2 control-label'
-						.col-lg-10
-							= f.text_area :description, class: 'form-control', placeholder: "Explain your recipe"
-					%div
-						.form-group
-							.ingredients
-								= f.fields_for :ingredients do |ff|
-									.ingredient.off
-										= ff.hidden_field :id
-										= ff.label :item
-										= ff.text_field :item
+  .col-lg-6
+    .well
+      = form_for @recipe, :html => {:class => 'form-horizontal',:multipart => true}  do |f|
+        = render "shared/error_messages", :target => @recipe
+        %fieldset
+          .form-group
+            = f.label :category, class: 'col-lg-2 control-label'
+            .col-lg-10
+              = f.text_area :category, class: 'form-control', placeholder: "ex. Indian, vegiterian, spicy"
+          .form-group
+            = f.label :title, class: 'col-lg-2 control-label'
+            .col-lg-10
+              = f.text_field :title, class: 'form-control'
+          .form-group
+            = f.label :photo, class: 'col-lg-2 control-label'
+            .col-lg-10
+              = f.file_field :photo, class: 'form-control'
+          .form-group
+            = f.label :description, class: 'col-lg-2 control-label'
+            .col-lg-10
+              = f.text_area :description, class: 'form-control', placeholder: "Explain your recipe"
+          .form-group
+            .ingredients
+              = f.fields_for :ingredients do |ff|
+                - if ff.object.id?
+                  .ingredient.on
+                    = ff.hidden_field :id
+                    = ff.label :item
+                    = ff.text_field :item
 
-										= ff.label :amount
-										= ff.text_field :amount
+                    = ff.label :amount
+                    = ff.text_field :amount
 
-										= ff.label :unit
-										= ff.select :unit, options_for_select(units)		
-						.form-group
-							.col-lg-12
-								-if @recipe.ingredients.present?
-									=link_to "Edit Ingredients", "#", class: "add-ingredient"
-								-else
-									=link_to "Add Ingredients","#", class: "add-ingredient"
-						.form-group
-							.col-lg-12
-								= f.submit class: 'save btn btn-success btn-md btn-block'
-						
+                    = ff.label :unit
+                    = ff.select :unit, options_for_select(units)   
+                - else
+                  .ingredient.off
+                    = ff.hidden_field :id
+                    = ff.label :item
+                    = ff.text_field :item
+
+                    = ff.label :amount
+                    = ff.text_field :amount
+
+                    = ff.label :unit
+                    = ff.select :unit, options_for_select(units)    
+          .form-group
+            .col-lg-12
+              %button.btn.btn-primary.add-ingredient{type: "button"}
+                %span.glyphicon.glyphicon-plus 
+                Add Ingredients
+        .form-group
+          .col-lg-12
+            = f.submit class: 'save btn btn-success btn-md btn-block'
+            
 :javascript
 
-	$(document).ready(function(){
-		$('.ingredient.off').hide();
-		$('.add-ingredient').on('click',function(event){
-			event.preventDefault();
-			var row = $('.ingredient.off:first') 
-			row.show();
-			row.removeClass('off');
-			row.addClass('on');
-		});
-	});
+  $(document).ready(function(){
+    $('.ingredient.off').hide();
+    $('.add-ingredient').on('click',function(event){
+      event.preventDefault();
+      var row = $('.ingredient.off:first') 
+      row.fadeIn();
+      row.removeClass('off');
+      row.addClass('on');
+    });
+  });
+
+
+  $(document).ready(function(){
+    $('form').submit(function(e){
+      $('input[type="text"]').each(function(){
+        if($(this).val() == ''){
+          $(this).prop('disabled',true);
+          $(this).closest('.ingredient').find('select').prop('disabled',true);
+        }
+       });
+    });
+  });
+
 
 

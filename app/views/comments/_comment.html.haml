@@ -2,10 +2,11 @@
   .row
     .col-md-4
       .well
-        %p
-          %strong Commenter:
-          = comment.commenter 
-        %p 
-          %strong Comment
+        %div
           = comment.body
+        %br
+        %div 
+          Reviewer:
+          =comment.commenter 
+
         

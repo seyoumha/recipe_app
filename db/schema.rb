@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140225191812) do
+ActiveRecord::Schema.define(version: 20140623180353) do
 
   create_table "comments", force: true do |t|
     t.string   "commenter"
@@ -23,6 +23,14 @@ ActiveRecord::Schema.define(version: 20140225191812) do
   end
 
   add_index "comments", ["recipe_id"], name: "index_comments_on_recipe_id"
+
+  create_table "directions", force: true do |t|
+    t.integer  "order"
+    t.text     "instruction"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "recipe_id"
+  end
 
   create_table "favorite_recipes", force: true do |t|
     t.integer  "recipe_id"

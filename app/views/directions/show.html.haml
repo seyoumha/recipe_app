@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Order:
+  = @direction.order
+%p
+  %b Instruction:
+  = @direction.instruction
+
+= link_to 'Edit', edit_direction_path(@direction)
+\|
+= link_to 'Back', directions_path

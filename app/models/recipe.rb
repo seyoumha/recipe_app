@@ -21,6 +21,7 @@ class Recipe < ActiveRecord::Base
 	:reject_if => :all_blank
 
 	belongs_to :user
+	has_many :directions
 	has_many :comments
 	has_many :favorite_recipes
 	has_many :user_favorited, through: :favorite_recipes, source: :user

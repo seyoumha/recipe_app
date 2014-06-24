@@ -1,4 +1,6 @@
 RecipeApp::Application.routes.draw do
+  
+
   resources :comments
 
   resources :coments
@@ -8,6 +10,7 @@ RecipeApp::Application.routes.draw do
   get 'ingredients/edit' => 'ingredients#edit'
   resources :recipes do
     resources :comments
+    resources :directions
     member do
       put :favorite
     end
