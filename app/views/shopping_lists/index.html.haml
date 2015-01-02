@@ -1,17 +1,18 @@
 %h1 Shopping List
 .well  
-  %table
+  %table.table
     %tr
       %th Item
       %th Amount
       %th Unit
+      %th
     -if @shopping_list
       - @shopping_list.each do |shopping_list|
         %tr
           %td= shopping_list.item
           %td= shopping_list.amount
           %td= shopping_list.unit
-          %td= link_to 'delete', remove_from_cart_path(shopping_list.id), method: :put
+          %td= link_to 'delete', remove_from_cart_path(shopping_list.id), method: :put, class: 'btn btn-warning'
       = link_to 'Clear Shopping List', remove_from_cart_path(), method: :put
     -else
       %h4 Your shopping cart is Empty

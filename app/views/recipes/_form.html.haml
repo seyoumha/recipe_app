@@ -1,5 +1,5 @@
 .row
-  .col-lg-6
+  .col-lg-12
     .well
       = form_for @recipe, :html => {:class => 'form-horizontal',:multipart => true}  do |f|
         = render "shared/error_messages", :target => @recipe
@@ -20,31 +20,14 @@
             = f.label :description, class: 'col-lg-2 control-label'
             .col-lg-10
               = f.text_area :description, class: 'form-control', placeholder: "Explain your recipe"
-          .form-group
-            .ingredients
-              = f.fields_for :ingredients do |ff|
-                - if ff.object.id?
-                  .ingredient.on
-                    = ff.hidden_field :id
-                    = ff.label :item
-                    = ff.text_field :item
-
-                    = ff.label :amount
-                    = ff.text_field :amount
-
-                    = ff.label :unit
-                    = ff.select :unit, options_for_select(units)   
-                - else
-                  .ingredient.off
-                    = ff.hidden_field :id
-                    = ff.label :item
-                    = ff.text_field :item
-
-                    = ff.label :amount
-                    = ff.text_field :amount
-
-                    = ff.label :unit
-                    = ff.select :unit, options_for_select(units)    
+          .ingredients
+            = f.fields_for :ingredients do |ff|
+              - if ff.object.id?
+                .ingredient.on
+                  =render 'ingredients/form', ff: ff
+              - else
+                .ingredient.off
+                  =render 'ingredients/form', ff: ff
           .form-group
             .col-lg-12
               %button.btn.btn-primary.add-ingredient{type: "button"}

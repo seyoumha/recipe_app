@@ -10,18 +10,18 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require ../unify/plugins/jquery-1.10.2.min
-//= require ../unify/plugins/jquery-migrate-1.2.1.min
-//= require ../unify/plugins/bootstrap/js/bootstrap.min
-//= require ../unify/plugins/hover-dropdown.min
-//= require ../unify/plugins/back-to-top
+// require ../unify/plugins/jquery-1.10.2.min
+// require ../unify/plugins/jquery-migrate-1.2.1.min
+// require ../unify/plugins/bootstrap/js/bootstrap.min
+// require ../unify/plugins/hover-dropdown.min
+// require ../unify/plugins/back-to-top
 
 // JS Implementing Plugins
-//= require ../unify/plugins/flexslider/jquery.flexslider-min
+// require ../unify/plugins/flexslider/jquery.flexslider-min
 //= require ../unify/plugins/parallax-slider/js/modernizr
 //= require ../unify/plugins/parallax-slider/js/jquery.cslider
 
 // JS Page Level
 // require ../unify/js/app
 // require ../unify/js/pages/index
-//= require ../unify/plugins/respond
+// require ../unify/plugins/respond

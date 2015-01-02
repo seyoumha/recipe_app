@@ -7,6 +7,10 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'devise'
 gem 'acts_as_commentable'
+gem 'will_paginate'
+gem 'will_paginate-bootstrap'
+
+
 
 # Use sqlite3 as the database for Active Record
 group :development do

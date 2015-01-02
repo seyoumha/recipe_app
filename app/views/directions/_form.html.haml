@@ -1,11 +1,13 @@
-= form_for ([@recipe, @recipe.directions.build]) do |f|
-  
+= form_for ([@recipe, @new_direction]) do |f|
   .form-group
-    .row
-      = f.label :order
-      = f.text_field :order
-    .row
-      = f.label :instruction
-      = f.text_area :instruction
+    .well
+      .row
+        = f.label "Order Number"
+      .row
+        = f.text_field :order, style:{:size=>2}
+        .row
+        = f.label :instruction
+        .row
+        = f.text_area :instruction
   .form-group
-    = f.submit 'Save'
+    = f.submit 'Save', class: 'save-directions btn btn-info'

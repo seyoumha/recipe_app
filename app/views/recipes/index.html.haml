@@ -1,7 +1,9 @@
 .navbar-right
-	%h3
-		=link_to "Grid View   |   ","#", class: 'grid-view'
-		=link_to "   List View","#", class: 'list-view'
+	%h3.badge
+		View  
+		=link_to "  ","#", class: 'grid-view glyphicon glyphicon-th'
+		=link_to " ","#", class: 'list-view glyphicon glyphicon-th-list'
+		
 - if @search_recipe
 	%h4 Search result for #{@search_recipe}
 -elsif current_user

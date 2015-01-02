@@ -1,2 +1,15 @@
-=render "form"
+.container
+  .well
+    =render 'page/slider'
+  %h2 
+    %span{style: 'color: #ff8200'}Start
+    Creating
+    %span{style: 'color: #ff8200'}Your
+    Recipe 
+  .well
+    .row
+      .col-md-6
+        =render "form"
+      .col-md-6
+        =image_tag "chef.jpeg"
 

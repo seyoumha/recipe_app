@@ -1,4 +1,7 @@
 %tr
   %td= direction.order
   %td= direction.instruction
-  %td= link_to "Delete", recipe_direction_path(@recipe, direction), method: :delete, class: 'btn btn-warning btn-xs'
+  %td= link_to "Edit Instruction", "/recipes/#{@recipe.id}/directions/#{direction.id}/edit", class: "btn btn-warning btn-xs"
+  %td= link_to "Delete", "/recipes/#{@recipe.id}/directions/#{direction.id}", method: :delete, class: 'btn btn-warning btn-xs'
+  /%td= link_to "Edit", edit_recipe_direction_path([@recipe, direction])
+  

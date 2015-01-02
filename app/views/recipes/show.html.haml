@@ -37,24 +37,46 @@
                   %td= i.unit
                   %td= link_to " Add to Shopping List", add_to_cart_path(i), class: 'glyphicon glyphicon-shopping-cart'
         -if @recipe.user == current_user
-          =link_to "Edit Recipe ", edit_recipe_path, class: "btn btn-danger btn-sm"
+          =link_to "Edit Recipe ", edit_recipe_path, class: "btn btn-success btn-sm"
 .container
   .col-md-6 
-    .well
-      %h4 Reviews
-      = render @recipe.comments
-      -if user_signed_in?
-        %h5 Add Your Reviews:
-        = render "comments/form"
+    = will_paginate @comments#, renderer: BootstrapPagination::Rails
+    = render @comments
+    -if user_signed_in?
+      %button.btn.btn-warning.add-comment
+        %span.glyphicon.glyphicon-plus
+        Review
+      = render "comments/form"
   .col-md-6
     .well
       %h4 Directions
       %table.table.table-striped.table-bordered
         %tr
-          %th Order
+          %th Num.
           %th Instruction
+          %th
           %th
         - @directions.each do |direction|
           =render "directions/direction", direction: direction
-      = link_to 'New Direction', new_recipe_direction_path(@recipe), class: "btn btn-success btn-sm"     
+      .direction-form
+        = render 'directions/form'
+      = link_to 'Add Instructions', new_recipe_direction_path(@recipe), class: "btn btn-success btn-sm btn-block add-instruction"   
+
+
+:javascript
+  $(document).ready(function(){
+    $('.direction-form').hide();
+    $('.add-instruction').on('click', function(e){
+      e.preventDefault();
+      $('.direction-form').show()
+    });
+
+    $('.new_comment').hide();
+    $('.add-comment').on('click', function(e){
+      e.preventDefault();
+      $('.new_comment').toggle('fade');
+    });
+  });
+
+
              

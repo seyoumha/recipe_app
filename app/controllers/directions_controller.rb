@@ -1,12 +1,15 @@
 class DirectionsController < ApplicationController
   before_action :find_recipe
-  before_action :set_direction, only: [:destroy, :update]
+  before_action :set_direction, only: [:destroy, :update, :edit]
+  def new
+    @direction = @recipe.directions.build
+  end
   def index
     @directions = @recipe.directions
   end
 
   def create
-    @direction = @recipe.directions.create(direction_params)
+    @direction = @recipe.directions.build(direction_params)
 
     respond_to do |format|
       if @direction.save
@@ -21,10 +24,13 @@ class DirectionsController < ApplicationController
 
   # PATCH/PUT /directions/1
   # PATCH/PUT /directions/1.json
+  def edit
+  end
+
   def update
     respond_to do |format|
       if @direction.update(direction_params)
-        format.html { redirect_to @direction, notice: 'Direction was successfully updated.' }
+        format.html { redirect_to @recipe, notice: 'Direction was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

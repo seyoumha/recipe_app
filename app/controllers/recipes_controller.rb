@@ -30,6 +30,9 @@ class RecipesController < ApplicationController
 		@recipe = Recipe.find(params[:id])
 		@ingredients = @recipe.ingredients
 		@directions = @recipe.directions
+		@new_direction = @recipe.directions.build
+		@comments =  @recipe.comments.paginate(:page => params[:page])
+
 	end
 
 	def new
