@@ -1,19 +1,20 @@
 class RecipesController < ApplicationController
-	before_filter :authenticate_user!, only:[:new, :edit, :create, :update]
+	before_action :authenticate_user!, only:[:new, :edit, :create, :update]
+	before_action :find_recipe, only: [:update, :destroy, :favorite, :edit, :show] 
+	
 	def favorite
-		type = params[:type]
-		@recipe = Recipe.find(params[:id])
-		if type == "favorite"
-			current_user.favorites << @recipe
+		case params[:type]
+		when 'favorite'
+			current_user.add_to_favorites(@recipe)
 			redirect_to @recipe
-		elsif type == "unfavorite"
-			current_user.favorites.delete(@recipe)
+		when 'unfavorite'	
+			current_user.remove_from_favorites(@recipe)
 			redirect_to @recipe
 		else
 			redirect_to :back
 		end
-		
 	end
+
 	def index
 		if params[:search]
 			@recipes = Recipe.search(params[:search])
@@ -27,7 +28,6 @@ class RecipesController < ApplicationController
 	end
 
 	def show
-		@recipe = Recipe.find(params[:id])
 		@ingredients = @recipe.ingredients
 		@directions = @recipe.directions
 		@new_direction = @recipe.directions.build
@@ -39,10 +39,9 @@ class RecipesController < ApplicationController
 		@recipe = Recipe.new
 		15.times{@recipe.ingredients.build}
 	end
+
 	def edit
-		@recipe = Recipe.find(params[:id])
 		10.times{@recipe.ingredients.build}
-		
 	end
 
 	def create
@@ -53,17 +52,14 @@ class RecipesController < ApplicationController
 		else
 			render action: 'new'
 		end
-
-
 	end
+
 	def update
-		@recipe = Recipe.find(params[:id])
 		@recipe.update(recipe_params)
 		redirect_to @recipe, notice: 'Your recipe is updated'
-		
 	end
+
 	def destroy
-		@recipe = Recipe.find(params[:id])
 		@recipe.destroy
 		redirect_to @recipe, notice: "Your recipe is deleted"
 	end
@@ -72,6 +68,9 @@ class RecipesController < ApplicationController
 
 		def recipe_params
 			params.require(:recipe).permit(:title, :description, :category, :photo, :search, ingredients_attributes: [:id, :item, :amount, :unit])
+		end
+		def find_recipe
+			@recipe = Recipe.find(params[:id])
 		end
 
 end

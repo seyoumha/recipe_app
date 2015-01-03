@@ -32,5 +32,11 @@ class User < ActiveRecord::Base
 		UserMailer.welcome_email(self).deliver
 	end
 
+  def add_to_favorites recipe
+    favorites << recipe
+  end
 
+  def remove_from_favorites( recipe)
+    favorites.delete(recipe)
+  end
 end

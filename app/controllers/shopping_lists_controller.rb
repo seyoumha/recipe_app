@@ -1,27 +1,39 @@
 class ShoppingListsController < ApplicationController
   
   def index
-    if session[:shopping_list]
-      @shopping_list = Ingredient.where(id: session[:shopping_list])
-    end
+    @shopping_list = Ingredient.where(id: cart.ingredients) if cart
   end
 
   def add
     @ingredient = Ingredient.find(params[:id]) 
-    session[:shopping_list] = [] if session[:shopping_list].nil?
-    session[:shopping_list] << @ingredient.id  
+    cart.add(@ingredient.id)
+    save(cart)
     redirect_to recipe_path(@ingredient.recipe), notice: 'successfully added'
   end
-
   
   def remove
-    if params[:id]
-      session[:shopping_list].delete(params[:id].to_i)
+    if id = params[:id]
+      cart.remove(id.to_i)
+      save(cart)
+      
     else
-      session.delete(:shopping_list)
+      session.delete(:cart)
     end
     redirect_to shopping_lists_path
   end
 
+
+  private
+
+  def cart
+    unless cart = session[:cart]
+      cart = ShoppingCart.new 
+      session[:cart] = cart 
+    end
+    cart
+  end
   
+  def save(cart)
+    session[:cart] = cart 
+  end
 end

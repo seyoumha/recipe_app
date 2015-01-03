@@ -42,5 +42,8 @@ class Recipe < ActiveRecord::Base
   	def tags
   		category.gsub(' ', '').split(",") if category
   	end
+  	def created_by(user)
+  		self.user == user   
+  	end
 
 end
