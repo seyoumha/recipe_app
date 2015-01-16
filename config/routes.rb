@@ -19,6 +19,7 @@ RecipeApp::Application.routes.draw do
   get 'cart/add/:id' => 'shopping_lists#add', as: :add_to_cart
   get 'shopping_lists/index'=> 'shopping_lists#index', as: :shopping_lists
   put 'shopping_lists/clear(/:id)'=> 'shopping_lists#remove', as: :remove_from_cart
+  get 'shopping_lists/download_pdf'=>'shopping_lists#download_pdf', as: :download_pdf
 
 
   root :to => "page#index"

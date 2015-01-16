@@ -14,6 +14,7 @@
 
 require 'carrierwave/orm/activerecord'
 class Recipe < ActiveRecord::Base
+	resourcify
 	mount_uploader :photo, PhotoUploader
 
 	has_many :ingredients, dependent: :destroy

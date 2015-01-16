@@ -2,6 +2,8 @@ class ShoppingListsController < ApplicationController
   
   def index
     @shopping_list = Ingredient.where(id: cart.ingredients) if cart
+    @consolidated_ingredients = cart.consolidated_ingredients
+
   end
 
   def add
@@ -21,6 +23,18 @@ class ShoppingListsController < ApplicationController
     end
     redirect_to shopping_lists_path
   end
+  def download_pdf
+  consolidated_cart = cart.consolidated_ingredients 
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = ShoppingListPdf.new(consolidated_cart)
+        send_data pdf.render, filename: 'shopping_list.pdf', type: 'application/pdf'
+      end
+    end
+
+  end
+
 
 
   private
@@ -36,4 +50,5 @@ class ShoppingListsController < ApplicationController
   def save(cart)
     session[:cart] = cart 
   end
+  
 end

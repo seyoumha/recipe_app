@@ -3,7 +3,11 @@
     = link_to (image_tag r.photo.url(:medium)),recipe_path(r.id), class: 'image'
     %h4.title=link_to r.title.titleize, recipe_path(r.id)
     %p.description= truncate r.description, length: 50
-    -if current_user && r.created_by(current_user)
+    
+    -if current_user && r.created_by(current_user) 
       %h5= link_to "Delete Recipe", recipe_path(r.id), method: :delete, class: 'btn btn-danger btn-xs'
+    - elsif current_user
+      -if current_user.has_role? :admin
+        %h5= link_to "Delete Recipe", recipe_path(r.id), method: :delete, class: 'btn btn-danger btn-xs'
+      .clearfix
     .clearfix
-  .clearfix

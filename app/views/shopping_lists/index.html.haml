@@ -1,4 +1,27 @@
 %h1 Shopping List
+/ .well  
+/   %table.table
+/     %tr
+/       %th Item
+/       %th Amount
+/       %th Unit
+/       %th
+/     -if @shopping_list
+/       - @shopping_list.each do |shopping_list|
+/         %tr
+/           %td= shopping_list.item
+/           %td= shopping_list.amount
+/           %td= shopping_list.unit
+/           %td= link_to 'delete', remove_from_cart_path(shopping_list.id), method: :put, class: 'btn btn-warning'
+/     -else
+/       %h4 Your shopping cart is Empty
+      
+/   .btn.btn-primary
+/     = link_to 'Clear Shopping List', remove_from_cart_path(), method: :put
+/   .btn.btn-success.navbar-right
+/     = link_to "Print Shopping List", download_pdf_path(:format => 'pdf')
+
+
 .well  
   %table.table
     %tr
@@ -6,16 +29,17 @@
       %th Amount
       %th Unit
       %th
-    -if @shopping_list
-      - @shopping_list.each do |shopping_list|
+    -if @consolidated_ingredients
+      - @consolidated_ingredients.each do |cart_item|
         %tr
-          %td= shopping_list.item
-          %td= shopping_list.amount
-          %td= shopping_list.unit
-          %td= link_to 'delete', remove_from_cart_path(shopping_list.id), method: :put, class: 'btn btn-warning'
-      = link_to 'Clear Shopping List', remove_from_cart_path(), method: :put
+          %td= cart_item[:item]
+          %td= cart_item[:amount]
+          %td= cart_item[:unit]
+          %td= link_to 'delete', remove_from_cart_path(cart_item[:id]), method: :put, class: 'btn btn-warning'          
     -else
       %h4 Your shopping cart is Empty
-
-
-
+  .btn.btn-primary
+    = link_to 'Clear Shopping List', remove_from_cart_path(), method: :put
+  .btn.btn-success.navbar-right
+    = link_to "Print Shopping List", download_pdf_path(:format => 'pdf')
+    
