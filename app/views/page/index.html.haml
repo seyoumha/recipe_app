@@ -19,40 +19,82 @@
                 =render 'slider' 
             .container
                 .row
-                    .col-md-12
+                    .col-md-6
                         %h2 
                             in
                             %span{style: 'color: #ff8200'}2
-                            food      
+                            food
+                    .col-md-6
+                        %h2
+                            %span{style: 'color: #ff8200'}Featured Recipies             
             .container
                 .row
-                    .col-md-4
+                    .col-md-5
                         .well
                             The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.
-                    .col-md-4
-                        .well
-                            The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.
-                    .col-md-4
-                        .well
-                            The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.
+                    .col-md-7
+                        .row
+                            .col-md-4
+                                = link_to (image_tag @featured_recipes[0].photo. url(:medium)), recipe_path(@featured_recipes[0].id), class: 'image'
+                            .col-md-8 
+                                .row
+                                    %h4
+                                        Title:
+                                        =@featured_recipes[0].title
+                                    by: 
+                                    =@featured_recipes[0].user.first_name   
+                                .row
+                                    %h5
+                                        Category: 
+                                        =@featured_recipes[0].category
+                                .row
+                                    %h5
+                                        Discription: 
+                                        =truncate @featured_recipes[0].description, length: 30        
                 .row
-                    .col-md-4
+                    .col-md-5
                         .well
                             The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.
-                    .col-md-4
-                        .well
-                            =image_tag"/assets/plugins/parallax-slider/img/kitfo.jpg"
-                    .col-md-4
-                        .well
-                            The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.
+                    .col-md-7
+                        .row
+                            .col-md-4
+                                = link_to (image_tag @featured_recipes[1].photo. url(:medium)), recipe_path(@featured_recipes[1].id), class: 'image'
+                            .col-md-8 
+                                .row
+                                    %h4
+                                        Title:
+                                        =@featured_recipes[1].title
+                                    by: 
+                                    =@featured_recipes[1].user.first_name   
+                                .row
+                                    %h5
+                                        Category: 
+                                        =@featured_recipes[1].category
+                                .row
+                                    %h5
+                                        Discription: 
+                                        =truncate @featured_recipes[1].description, length: 30
                 .row
-                    .col-md-4
-                        .well
-                            =image_tag"/assets/plugins/parallax-slider/img/sushi.jpg"
-                    .col-md-4
+                    .col-md-5
                         .well
                             The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.
-                    .col-md-4
-                        .well
-                            =image_tag"/assets/plugins/parallax-slider/img/veggie.jpg"          
-
+                    .col-md-7
+                        .row
+                            .col-md-4
+                                = link_to (image_tag @featured_recipes[2].photo. url(:medium)), recipe_path(@featured_recipes[2].id), class: 'image'
+                            .col-md-8 
+                                .row
+                                    %h4
+                                        Title:
+                                        =@featured_recipes[2].title
+                                    by: 
+                                    =@featured_recipes[2].user.first_name   
+                                .row
+                                    %h5
+                                        Category: 
+                                        =@featured_recipes[2].category
+                                .row
+                                    %h5
+                                        Discription: 
+                                        =truncate @featured_recipes[2].description, length: 30                    
+                

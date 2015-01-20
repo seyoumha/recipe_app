@@ -3,24 +3,6 @@
 		View  
 		=link_to "  ","#", class: 'grid-view glyphicon glyphicon-th'
 		=link_to " ","#", class: 'list-view glyphicon glyphicon-th-list'
-		
-/ - if @search_recipe
-/ 	%h4 Search result for #{@search_recipe}
-
-/ -elsif current_user
-/ 	%h4 Your favorite Recipes
-/ 	.container
-/ 		- @favorite_recipes.each do |r|
-/ 			= render "recipe", r: r
-/ 	%h4 Your Recipes
-
-/ -else
-/ 	%h1 Recipe List
-
-
-/ .container
-/ 	- @recipes.each do |r|
-/ 		= render "recipe", r: r
 
 - if @search_recipe
 	%h4 Search Result for #{@search_recipe.titleize}

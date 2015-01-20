@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150105191524) do
+ActiveRecord::Schema.define(version: 20150120171319) do
 
   create_table "comments", force: true do |t|
     t.string   "commenter"
@@ -55,8 +55,10 @@ ActiveRecord::Schema.define(version: 20150105191524) do
     t.string   "category"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "avatar"
     t.string   "photo"
-    t.integer  "user_id",     default: 0, null: false
+    t.integer  "user_id",         default: 0, null: false
+    t.boolean  "featured_recipe"
   end
 
   create_table "roles", force: true do |t|

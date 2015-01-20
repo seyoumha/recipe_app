@@ -6,6 +6,13 @@ class PageController < ApplicationController
   			@tags[word] += 1
   		}
   	}
+  	
+  	@featured_recipes = []
+  	Recipe.all.each do |recipe|
+  		if recipe.featured_recipe.present?
+  			@featured_recipes << recipe
+  		end
+  	end
 
   end
 end
