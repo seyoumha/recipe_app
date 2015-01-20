@@ -6,16 +6,18 @@
       %th Amount
       %th Unit
       %th
-    -if @shopping_list
-      - @shopping_list.each do |shopping_list|
+    -if @cart_items
+      - @cart_items.each do |cart_item|
         %tr
-          %td= shopping_list.item
-          %td= shopping_list.amount
-          %td= shopping_list.unit
-          %td= link_to 'delete', remove_from_cart_path(shopping_list.id), method: :put, class: 'btn btn-warning'
-      = link_to 'Clear Shopping List', remove_from_cart_path(), method: :put
+          %td= cart_item[:item]
+          %td= cart_item[:amount]
+          %td= cart_item[:unit]
+          %td= link_to 'delete', remove_from_cart_path({item: cart_item[:item], unit: cart_item[:unit]}), method: :put, class: 'btn btn-warning'       
     -else
       %h4 Your shopping cart is Empty
-
-
-
+  -if @cart_items
+    .btn.btn-primary
+      = link_to 'Clear Shopping List', remove_all_from_cart_path(), method: :put
+    .btn.btn-success.navbar-right
+      = link_to "Print Shopping List", download_pdf_path(:format => 'pdf')
+ 

@@ -1,3 +1,11 @@
-<% flash.each do |name, msg| %>
-	<%= content_tag :div, msg, class: name %>
-<% end %>
+<% if flash.present? %>
+	<div class='row'>
+		<div class="col-lg-10 col-lg-offset-1 ">
+			<div class="alert alert-dissmissable alert-success">
+				<% flash.each do |name, msg| %>
+					<%= content_tag :p, msg %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+<%end%>

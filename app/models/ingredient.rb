@@ -13,6 +13,7 @@
 #
 
 class Ingredient < ActiveRecord::Base
+	resourcify
 	belongs_to :recipe
 
 	validates :item, :amount, :unit, presence: true

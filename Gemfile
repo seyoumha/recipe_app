@@ -9,9 +9,11 @@ gem 'devise'
 gem 'acts_as_commentable'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
-
-
-
+gem 'cancan'
+gem 'rolify'
+gem 'prawn'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
 # Use sqlite3 as the database for Active Record
 group :development do
 	gem 'sqlite3', '1.3.8'

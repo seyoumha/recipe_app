@@ -20,6 +20,7 @@
 #
 
 class User < ActiveRecord::Base
+  rolify
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -28,7 +29,9 @@ class User < ActiveRecord::Base
   has_many :recipes
   has_many :favorite_recipes
   has_many :favorites, through: :favorite_recipes, source: :recipe
-	def send_welcome_email
+ 
+
+  def send_welcome_email
 		UserMailer.welcome_email(self).deliver
 	end
 
@@ -39,4 +42,5 @@ class User < ActiveRecord::Base
   def remove_from_favorites( recipe)
     favorites.delete(recipe)
   end
+  
 end
