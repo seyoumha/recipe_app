@@ -1,0 +1,23 @@
+%h1 
+  in
+  %span{style: 'color: #ff8200'}2 
+  food
+%h4 Your Shopping List  
+%table.table.table-striped.table-bordered
+  %tr
+    %th Done
+    %th Item
+    %th Amount
+    %th Unit
+  -if @consolidated_cart
+    - @consolidated_cart.each do |cart_item|
+      %tr
+        %td.narrow-checkbox_column
+          .mycheck-box
+        %td= cart_item[:item]
+        %td= cart_item[:amount]
+        %td= cart_item[:unit]
+.pull-right
+  = ENV["WEBSITE_URL"]                    
+    
+    

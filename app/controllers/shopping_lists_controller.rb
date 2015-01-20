@@ -1,8 +1,7 @@
 class ShoppingListsController < ApplicationController
   
   def index
-    @shopping_list = Ingredient.where(id: cart.ingredients) if cart
-    @consolidated_ingredients = cart.consolidated_ingredients
+    @cart_items = cart.cart_items
 
   end
 
@@ -14,8 +13,10 @@ class ShoppingListsController < ApplicationController
   end
   
   def remove
-    if id = params[:id]
-      cart.remove(id.to_i)
+    item = params[:item]
+    unit = params[:unit]
+    if item && unit 
+      cart.remove(item, unit)
       save(cart)
       
     else
@@ -23,13 +24,18 @@ class ShoppingListsController < ApplicationController
     end
     redirect_to shopping_lists_path
   end
+  
   def download_pdf
-  consolidated_cart = cart.consolidated_ingredients 
+    @consolidated_cart = cart.consolidated_ingredients 
     respond_to do |format|
       format.html
       format.pdf do
-        pdf = ShoppingListPdf.new(consolidated_cart)
-        send_data pdf.render, filename: 'shopping_list.pdf', type: 'application/pdf'
+        html = render_to_string(action: :download_pdf, layout: "pdf.html.haml")
+        pdf = WickedPdf.new.pdf_from_string(html)
+
+        send_data(pdf,
+          filename: "myShoppigList",
+          disposition: 'attachment')
       end
     end
 

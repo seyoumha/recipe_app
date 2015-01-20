@@ -1,43 +1,32 @@
 class ShoppingCart
 
-	attr_accessor :ingredients
-	
-	def initialize
-		@ingredients = []
-	end
+	attr_accessor :cart_items
 
 	def add(i)
-		@ingredients << i
+		ingredient = Ingredient.find(i)
+		@cart_items = [] unless @cart_items
+		@cart_items << {item: ingredient.item, unit: ingredient.unit, amount: ingredient.amount}
+		consolidated!
 		self
 	end
 
-	def remove(i)
-		self.ingredients.delete(i)
+	def remove(item, unit)
+		x = self.cart_items.delete_if do |cart_item|
+			cart_item[:item] == item && cart_item[:unit] == unit
+		end 
+		self.cart_items = x 
 		self
 	end
-	
-	def ingredient_items
-		 Ingredient.find(ingredients)
-	end
 
-	def consolidated_ingredients
-		consolidated_ingredients = []
-		ingredient_items.group_by{|i| i.item}.each do |item,ingredients| 
-			result = ingredients.group_by{|i| i.unit}.map do |unit,ingredients|
-				amount = ingredients.sum{|i| i.amount}
-				consolidated_ingredients << {item: item, unit: unit, amount: amount}
+	def consolidated!
+		cart_items2 = []
+		@cart_items.group_by{|ci| ci[:item]}.each do |item, ingredients| 
+			ingredients.group_by{|ci| ci[:unit]}.map do |unit, ingredients|
+				amount = ingredients.sum{|i| i[:amount]}
+				cart_items2 << {item: item, unit: unit, amount: amount}
 			end
 		end
-		consolidated_ingredients
+		@cart_items = cart_items2
 	end
-
-	# def consolidated_ingredients
-	# 	ingredient_items.to_a.group_by{|i| i.item}.each do |item,i| 
-	# 		consolidated_ingredients = i.group_by{|i| i.unit}.map{|unit,i|
-	# 			{item: item, unit: unit, amount: i.sum{|i|i.amount}}
-	# 		}
-	# 	end
-	# 	consolidated_ingredients
-	# end
 
 end
