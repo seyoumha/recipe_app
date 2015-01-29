@@ -1,3 +1,16 @@
+GIT
+  remote: git://github.com/bmc/jquery-raty-rails.git
+  revision: f362f17c0ff3ac039ab05b5e48e5db24a27794b3
+  specs:
+    jquery-raty-rails (0.0.1)
+      rails (>= 3.2.3)
+
+GIT
+  remote: git://github.com/wazery/ratyrate.git
+  revision: 1cd25dc55b962a788528cd4b284545d775657525
+  specs:
+    ratyrate (1.2.2.alpha)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -178,12 +191,14 @@ DEPENDENCIES
   haml-rails
   jbuilder (~> 1.2)
   jquery-rails
+  jquery-raty-rails!
   mini_magick
   pg
   prawn
   pry
   rails (= 4.0.2)
   rails_12factor
+  ratyrate!
   rolify
   sass-rails (~> 4.0.1)
   sdoc

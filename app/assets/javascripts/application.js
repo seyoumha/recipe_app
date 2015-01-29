@@ -16,4 +16,6 @@
 //= require turbolinks
 //= require modernizr
 //= require jquery.cslider
+//= require jquery.raty
+//= require ratyrate.js.erb
 // require_tree .

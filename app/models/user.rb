@@ -29,6 +29,9 @@ class User < ActiveRecord::Base
   has_many :recipes
   has_many :favorite_recipes
   has_many :favorites, through: :favorite_recipes, source: :recipe
+  has_many :ratings
+  ratyrate_rater
+  serialize :rated_recipes
  
 
   def send_welcome_email
@@ -41,6 +44,12 @@ class User < ActiveRecord::Base
 
   def remove_from_favorites( recipe)
     favorites.delete(recipe)
+  end
+
+  def rated recipe
+    self.rated_recipes = [] unless rated_recipes
+    self.rated_recipes << recipe.id unless self.rated_recipes.include? recipe.id
+    self
   end
   
 end

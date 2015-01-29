@@ -1,6 +1,6 @@
 .container
-    .row
-        .col-md-2
+    .col-md-2
+        .row       
             .sidebar.hidden-print.affix
                 %ul.nav.list-unstyled
                     %li.list-group-item                     
@@ -13,88 +13,54 @@
                                         =tag
                                         %span.badge.pull-right
                                             =count  
-                            
-        .col-md-10
-            .container  
-                =render 'slider' 
-            .container
+    .col-md-10    
+        .container  
+            =render 'slider' 
+        .container
+            .col-md-6
+                %h2 
+                    in
+                    %span{style: 'color: #ff8200'}2
+                    food
+            .col-md-6
+                %h2
+                    %span{style: 'color: #ff8200'}Featured Recipies             
+        .container
+            .col-md-5
                 .row
-                    .col-md-6
-                        %h2 
-                            in
-                            %span{style: 'color: #ff8200'}2
-                            food
-                    .col-md-6
-                        %h2
-                            %span{style: 'color: #ff8200'}Featured Recipies             
-            .container
+                    .well
+                        The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.
                 .row
-                    .col-md-5
-                        .well
-                            The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.
-                    .col-md-7
+                    .well
+                        The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.
+                .row
+                    .well
+                        The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.
+                .row
+                    .well
+                        The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.
+            .col-md-7
+                -@featured_recipes.each_with_index do |i,r|
+                    .well
                         .row
                             .col-md-4
-                                = link_to (image_tag @featured_recipes[0].photo. url(:medium)), recipe_path(@featured_recipes[0].id), class: 'image'
+                                = link_to (image_tag @featured_recipes[r].photo. url(:medium)), recipe_path(@featured_recipes[0].id), class: 'image'
                             .col-md-8 
                                 .row
                                     %h4
                                         Title:
-                                        =@featured_recipes[0].title
+                                        =@featured_recipes[r].title
                                     by: 
-                                    =@featured_recipes[0].user.first_name   
+                                    =@featured_recipes[r].user.first_name   
                                 .row
                                     %h5
                                         Category: 
-                                        =@featured_recipes[0].category
+                                        =@featured_recipes[r].category
                                 .row
                                     %h5
                                         Discription: 
-                                        =truncate @featured_recipes[0].description, length: 30        
-                .row
-                    .col-md-5
-                        .well
-                            The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.
-                    .col-md-7
-                        .row
-                            .col-md-4
-                                = link_to (image_tag @featured_recipes[1].photo. url(:medium)), recipe_path(@featured_recipes[1].id), class: 'image'
-                            .col-md-8 
+                                        =truncate @featured_recipes[r].description, length: 30
                                 .row
-                                    %h4
-                                        Title:
-                                        =@featured_recipes[1].title
-                                    by: 
-                                    =@featured_recipes[1].user.first_name   
-                                .row
-                                    %h5
-                                        Category: 
-                                        =@featured_recipes[1].category
-                                .row
-                                    %h5
-                                        Discription: 
-                                        =truncate @featured_recipes[1].description, length: 30
-                .row
-                    .col-md-5
-                        .well
-                            The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.
-                    .col-md-7
-                        .row
-                            .col-md-4
-                                = link_to (image_tag @featured_recipes[2].photo. url(:medium)), recipe_path(@featured_recipes[2].id), class: 'image'
-                            .col-md-8 
-                                .row
-                                    %h4
-                                        Title:
-                                        =@featured_recipes[2].title
-                                    by: 
-                                    =@featured_recipes[2].user.first_name   
-                                .row
-                                    %h5
-                                        Category: 
-                                        =@featured_recipes[2].category
-                                .row
-                                    %h5
-                                        Discription: 
-                                        =truncate @featured_recipes[2].description, length: 30                    
-                
+                                    -if @featured_recipes[r].average_ratings.present?
+                                        -@featured_recipes[r].average_ratings.times do |i|
+                                            =image_tag("star-on.png")

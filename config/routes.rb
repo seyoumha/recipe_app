@@ -1,6 +1,8 @@
 RecipeApp::Application.routes.draw do
   
 
+  get '/rate' => 'ratings#create' 
+  #post '/rate' => 'rater#create', :as => 'rate'
   resources :comments
 
   resources :coments

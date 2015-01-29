@@ -3,6 +3,21 @@
     .row
       .col-md-12
         =image_tag @recipe.photo
+        %h4
+          Average Rating for 
+          =@recipe.title    
+          -@recipe.average_ratings.times do |i|
+            =image_tag("star-on.png")
+        -if current_user.rated_recipes.present? && current_user.rated_recipes.include?(@recipe.id)
+          %p.text-muted You have rated this recipe
+        -else
+          %strong Recipe Rating: 
+          .stars
+            =image_tag("star-off.png", class: 'star1')
+            =image_tag("star-off.png", class: 'star2')
+            =image_tag("star-off.png", class: 'star3')
+            =image_tag("star-off.png", class: 'star4')
+            =image_tag("star-off.png", class: 'star5')     
         %h2= @recipe.title
         %strong Category:
         - @recipe.tags.each do |word|
@@ -76,7 +91,42 @@
       e.preventDefault();
       $('.new_comment').toggle('fade');
     });
+    
+
+
+    function assign_behavior(i){
+      
+      $('.star'+i).on('mouseover',function(e){
+        for ( var x = 1; x <= i; x++ ) {
+          $('.star'+x).prop('src', '/assets/star-on.png') 
+        }  
+      });
+
+      $('.star'+i).on('mouseout', function(e){
+        for ( var x = 1; x <= i; x++ ) {
+          $('.star'+x).prop('src', '/assets/star-off.png') 
+        }
+      });
+
+      $('.star'+i).on('click',function(e){
+        $.ajax("/rate?id=#{@recipe.id}&stars="+i);
+        for ( var x = 1; x <= i; x++ ) {
+          $('.star'+x).off('mouseover') 
+          $('.star'+x).off('mouseout') 
+        } 
+        $('.stars').hide()
+      });
+
+
+    }
+    assign_behavior(1);
+    assign_behavior(2);
+    assign_behavior(3);
+    assign_behavior(4);
+    assign_behavior(5);
+
   });
+
 
 
              
