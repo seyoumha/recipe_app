@@ -6,6 +6,7 @@ RecipeApp::Application.routes.draw do
   resources :comments
 
   resources :coments
+  resources :favorites, only: [:update, :destroy]
 
   devise_for :users
   post 'ingredients/update' => 'ingredients#update'#, as: :edit_ingredients
@@ -13,9 +14,9 @@ RecipeApp::Application.routes.draw do
   resources :recipes do
     resources :comments
     resources :directions
-    member do
-      put :favorite
-    end
+    # member do
+    #   put :favorite
+    # end
   end
   resources :ingredients
   get 'cart/add/:id' => 'shopping_lists#add', as: :add_to_cart

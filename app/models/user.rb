@@ -27,8 +27,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   after_create :send_welcome_email
   has_many :recipes
-  has_many :favorite_recipes
-  has_many :favorites, through: :favorite_recipes, source: :recipe
+  # has_many :favorite_recipes
+  # has_many :favorites, through: :favorite_recipes, source: :recipe
   has_many :ratings
   ratyrate_rater
   serialize :rated_recipes
@@ -38,13 +38,13 @@ class User < ActiveRecord::Base
 		UserMailer.welcome_email(self).deliver
 	end
 
-  def add_to_favorites recipe
-    favorites << recipe
+  def has_favorited?(recipe)
+    ro = RecipeOption.where(option_type: 2, recipe_id: recipe.id, user_id: self.id)
+    if ro.present?
+      return true
+    end
   end
-
-  def remove_from_favorites( recipe)
-    favorites.delete(recipe)
-  end
+  
 
   def rated recipe
     self.rated_recipes = [] unless rated_recipes
