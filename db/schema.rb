@@ -105,7 +105,7 @@ ActiveRecord::Schema.define(version: 20150131002752) do
   create_table "recipe_options", force: true do |t|
     t.integer  "user_id"
     t.integer  "recipe_id"
-    t.integer  "option_type", default: 0
+    t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

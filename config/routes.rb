@@ -7,6 +7,7 @@ RecipeApp::Application.routes.draw do
 
   resources :coments
   resources :favorites, only: [:update, :destroy]
+  resources :featured_recipes
 
   devise_for :users
   post 'ingredients/update' => 'ingredients#update'#, as: :edit_ingredients

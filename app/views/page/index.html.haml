@@ -40,27 +40,27 @@
                     .well
                         The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.
             .col-md-7
-                -@featured_recipes.each_with_index do |i,r|
+                -@featured_recipes.each do |r|
                     .well
                         .row
                             .col-md-4
-                                = link_to (image_tag @featured_recipes[r].photo. url(:medium)), recipe_path(@featured_recipes[0].id), class: 'image'
+                                = link_to (image_tag r.photo.url(:medium)), recipe_path(r.id), class: 'image'
                             .col-md-8 
                                 .row
                                     %h4
                                         Title:
-                                        =@featured_recipes[r].title
+                                        =r.title
                                     by: 
-                                    =@featured_recipes[r].user.first_name   
+                                    =r.user.first_name   
                                 .row
                                     %h5
                                         Category: 
-                                        =@featured_recipes[r].category
+                                        =r.category
                                 .row
                                     %h5
                                         Discription: 
-                                        =truncate @featured_recipes[r].description, length: 30
+                                        =truncate r.description, length: 30
                                 .row
-                                    -if @featured_recipes[r].average_ratings.present?
-                                        -@featured_recipes[r].average_ratings.times do |i|
+                                    -if r.average_ratings.present?
+                                        -r.average_ratings.times do |i|
                                             =image_tag("star-on.png")

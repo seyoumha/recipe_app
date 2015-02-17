@@ -22,10 +22,11 @@ class Recipe < ActiveRecord::Base
 	:reject_if => :all_blank
 
 	belongs_to :user
+	has_many :featured_recipes
 	has_many :ratings
 	has_many :directions, dependent: :destroy
 	has_many :comments, dependent: :destroy
-	# has_many :favorite_recipes, dependent: :destroy
+	has_many :user_favorites, dependent: :destroy, class_name: 'FavoriteRecipe'
 	# has_many :user_favorited, through: :favorite_recipes, source: :user
 
 	validates :title, :category, :description, presence: true 

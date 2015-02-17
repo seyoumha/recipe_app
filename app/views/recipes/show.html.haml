@@ -17,7 +17,12 @@
             =image_tag("star-off.png", class: 'star2')
             =image_tag("star-off.png", class: 'star3')
             =image_tag("star-off.png", class: 'star4')
-            =image_tag("star-off.png", class: 'star5')     
+            =image_tag("star-off.png", class: 'star5')
+        -if current_user.has_role? :admin 
+          -if recipe_featured?(@recipe)
+            = link_to "Delete from Featured Recipes", featured_recipe_path(recipe_id: @recipe.id), method: :delete 
+          -else
+            =link_to "Feature this Recipe", featured_recipe_path(@recipe), method: :put     
         %h2= @recipe.title
         %strong Category:
         - @recipe.tags.each do |word|
@@ -27,10 +32,9 @@
         = @recipe.description
         -if user_signed_in?
           %h5
-            -if current_user.has_favorited? @recipe
-              = link_to "Delete from Favorite", favorite_path(recipe_id: @recipe.id, user_id: current_user.id), method: :delete, remote: :true 
-            -else
-              = link_to "Add to Favorite", favorite_path(@recipe), method: :put, remote: :true
+            = link_to "Delete from Favorite", favorite_path(recipe_id: @recipe.id, user_id: current_user.id), method: :delete, remote: :true , id: 'delete-favorite', style: 'display: none'
+          
+            = link_to "Add to Favorite", favorite_path(@recipe), method: :put, remote: :true, id: 'add-favorite', style: 'display: none'
         -else
           %h4
             = link_to "Sign in to Add to Favorite", new_user_session_path
@@ -80,6 +84,23 @@
 
 :javascript
   $(document).ready(function(){
+    var show_fav_link = #{current_user.has_favorited?(@recipe) ? "false" : "true"  }
+    if(show_fav_link){
+      $('#add-favorite').show()
+    }else{
+      $('#delete-favorite').show()
+    }
+
+    $('#add-favorite').bind('ajax:success', function() {
+      $('#add-favorite').hide()
+      $('#delete-favorite').show()
+    });
+
+    $('#delete-favorite').bind('ajax:success', function() {
+      $('#add-favorite').show()
+      $('#delete-favorite').hide()
+    });
+
     $('.direction-form').hide();
     $('.add-instruction').on('click', function(e){
       e.preventDefault();

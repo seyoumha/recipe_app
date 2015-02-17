@@ -2,19 +2,6 @@ class RecipesController < ApplicationController
 	before_action :authenticate_user!, only:[:new, :edit, :create, :update]
 	before_action :find_recipe, only: [:update, :destroy, :favorite, :edit, :show] 
 	
-	# def favorite
-	# 	case params[:type]
-	# 	when 'favorite'
-	# 		current_user.add_to_favorites(@recipe)
-	# 		redirect_to @recipe
-	# 	when 'unfavorite'	
-	# 		current_user.remove_from_favorites(@recipe)
-	# 		redirect_to @recipe
-	# 	else
-	# 		redirect_to :back
-	# 	end
-	# end
-
 
 	def index
 		if params[:search]
@@ -22,9 +9,9 @@ class RecipesController < ApplicationController
 			@search_recipe = (params[:search])
 		elsif current_user 
 			@recipes = current_user.recipes
-			ro = RecipeOption.where(user_id: current_user.id, option_type: 2)
-			recipe_ids = ro.map(&:recipe_id)
-			@favorited_recipes = Recipe.find(recipe_ids)
+			@favorited_recipes = current_user.favorited_recipes
+
+			
 		else
 			@recipes = Recipe.all
 		end	

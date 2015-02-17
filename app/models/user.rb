@@ -27,9 +27,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   after_create :send_welcome_email
   has_many :recipes
-  # has_many :favorite_recipes
-  # has_many :favorites, through: :favorite_recipes, source: :recipe
-  has_many :ratings
+  has_many :favorite_recipes
+  has_many :favorited_recipes, through: :favorite_recipes, source: :recipe
   ratyrate_rater
   serialize :rated_recipes
  
@@ -39,8 +38,8 @@ class User < ActiveRecord::Base
 	end
 
   def has_favorited?(recipe)
-    ro = RecipeOption.where(option_type: 2, recipe_id: recipe.id, user_id: self.id)
-    if ro.present?
+    fav = FavoriteRecipe.where(recipe_id: recipe.id, user_id: self.id)
+    if fav.present?
       return true
     end
   end
