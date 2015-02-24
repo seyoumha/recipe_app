@@ -68,8 +68,8 @@ RecipeApp::Application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :address        => 'smtp.sendgrid.net',
-    :port           => '587',
+    :address        => 'mail.gmail.com',
+    :port           => '25',
     :authentication => :plain,
     :user_name      => 'seyoumha@gmail.com',
     :password       => ENV['SMTP_PASSWORD'],
