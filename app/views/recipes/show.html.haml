@@ -80,8 +80,8 @@
                 %td= i.amount
                 %td= i.unit
                 %td= link_to"" ,add_to_cart_path(i), title: "add to cart", class: 'glyphicon glyphicon-shopping-cart cart'
-        -if @recipe.user == current_user
-          =link_to "Edit Recipe ", edit_recipe_path, class: "btn btn-success btn-sm"
+      -if @recipe.user == current_user
+        =link_to "Edit Recipe ", edit_recipe_path, class: "btn btn-success btn-sm"
     .col-md-10.extra-line
       %h2.orange Directions
       .well
