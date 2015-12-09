@@ -26,7 +26,7 @@ class ShoppingListsController < ApplicationController
   end
   
   def download_pdf
-    @consolidated_cart = cart.consolidated_ingredients 
+    @consolidated_cart = cart.consolidated! 
     respond_to do |format|
       format.html
       format.pdf do

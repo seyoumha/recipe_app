@@ -4,7 +4,9 @@
   <title>in2food</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <link href='https://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -50,6 +52,6 @@
 	<br/><br/><br/>
     <%= render 'layouts/notice'%>
 
-	<div class='container'><%= yield %></div>
+	<div><%= yield %></div>
 </body>
 </html>

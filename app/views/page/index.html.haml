@@ -1,66 +1,50 @@
-.container
-    .col-md-2
-        .row       
-            .sidebar.hidden-print.affix
-                %ul.nav.list-unstyled
-                    %li.list-group-item                     
-                        %h4 Explore Recipes
-                        %ul.nav.nav-pills
-                        - @tags.each do |tag,count|
-                            %li
-                                %a{href: "#{recipes_path(search: tag)}"}
-                                    .tag{style: "width:175px"}
-                                        =tag
-                                        %span.badge.pull-right
-                                            =count  
-    .col-md-10    
-        .container  
-            =render 'slider' 
-        .container
-            .col-md-6
-                %h2 
-                    in
-                    %span{style: 'color: #ff8200'}2
-                    food
-            .col-md-6
-                %h2
-                    %span{style: 'color: #ff8200'}Featured Recipies             
-        .container
-            .col-md-5
+.container-fluid
+    .col-md-12    
+        =render 'slider'            
+    .col-md-3.text-center
+        %h2 
+            Explore
+            %span.orange Recipies
+    .col-md-9
+        %h2
+            %span.orange Featured Recipies  
+    .col-md-3       
+        .sidebar.hidden-print.well
+            %ul.nav.list-unstyled
+                %li.list-group-item                     
+                    %h4 Categories
+                    %ul.nav.nav-pills
+                    - @tags.each do |tag,count|
+                        %li
+                            %a{href: "#{recipes_path(search: tag)}"}
+                                .tag{style: "width:175px"}
+                                    =tag
+                                    %span.badge.pull-right
+                                        =count  
+                  
+    .col-md-9
+        %p Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.%p Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+    .col-md-6.extra-line
+        -@featured_recipes.each do |r|
+            .well
                 .row
-                    .well
-                        The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.
-                .row
-                    .well
-                        The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.
-                .row
-                    .well
-                        The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.
-                .row
-                    .well
-                        The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.The form_tag helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.
-            .col-md-7
-                -@featured_recipes.each do |r|
-                    .well
-                        .row
-                            .col-md-4
-                                = link_to (image_tag r.photo.url(:medium)), recipe_path(r.id), class: 'image'
-                            .col-md-8 
-                                .row
-                                    %h4
-                                        Title:
-                                        =r.title
-                                    by: 
-                                    =r.user.first_name   
-                                .row
-                                    %h5
-                                        Category: 
-                                        =r.category
-                                .row
-                                    %h5
-                                        Discription: 
-                                        =truncate r.description, length: 30
-                                .row
-                                    -if r.average_ratings.present?
-                                        -r.average_ratings.times do |i|
-                                            =image_tag("star-on.png")
+                    .col-md-4
+                        = link_to (image_tag r.photo.url(:medium)), recipe_path(r.id), class: 'image'
+                    .col-md-8 
+                        %h4
+                            Title:
+                            =r.title
+                        by: 
+                        =r.user.first_name   
+                        %h5
+                            Category: 
+                            =r.category
+                        %h5
+                            Discription: 
+                            =truncate r.description, length: 30
+                        -if r.average_ratings.present?
+                            -r.average_ratings.times do |i|
+                                =image_tag("star-on.png")
+    .col-md-3.extra-line
+        .well
+            %p Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.                                                      

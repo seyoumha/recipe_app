@@ -10,7 +10,6 @@ class DirectionsController < ApplicationController
 
   def create
     @direction = @recipe.directions.build(direction_params)
-
     respond_to do |format|
       if @direction.save
         format.html { redirect_to @recipe, notice: 'Direction was successfully created.' }
@@ -25,6 +24,7 @@ class DirectionsController < ApplicationController
   # PATCH/PUT /directions/1
   # PATCH/PUT /directions/1.json
   def edit
+    
   end
 
   def update
@@ -56,6 +56,7 @@ class DirectionsController < ApplicationController
     end
     def set_direction
       @direction = Direction.find(params[:id])
+      @direction = @direction
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

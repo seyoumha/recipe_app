@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150131002752) do
+ActiveRecord::Schema.define(version: 20151202195152) do
 
   create_table "average_caches", force: true do |t|
     t.integer  "rater_id"
@@ -121,6 +121,9 @@ ActiveRecord::Schema.define(version: 20150131002752) do
     t.integer  "user_id",         default: 0, null: false
     t.boolean  "featured_recipe"
     t.text     "ratings_hash"
+    t.integer  "prep_time"
+    t.integer  "cook_time"
+    t.integer  "servings"
   end
 
   create_table "roles", force: true do |t|

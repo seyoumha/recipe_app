@@ -1,7 +1,8 @@
-%tr
-  %td= direction.order
-  %td= direction.instruction
-  %td= link_to "Edit Instruction", "/recipes/#{@recipe.id}/directions/#{direction.id}/edit", class: "btn btn-warning btn-xs"
-  %td= link_to "Delete", "/recipes/#{@recipe.id}/directions/#{direction.id}", method: :delete, class: 'btn btn-warning btn-xs'
-  /%td= link_to "Edit", edit_recipe_direction_path([@recipe, direction])
-  
+.row
+  .col-md-10
+    = direction.instruction.humanize unless direction.instruction == nil
+  -if current_user 
+    .col-md-1.pull-right
+      = link_to "Edit", "/recipes/#{@recipe.id}/directions/#{direction.id}/edit", class: "btn btn-warning btn-xs"
+    .col-md-1.pull-right
+      = link_to "Delete", "/recipes/#{@recipe.id}/directions/#{direction.id}", method: :delete, class: 'btn btn-warning btn-xs'

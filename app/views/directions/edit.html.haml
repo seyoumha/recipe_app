@@ -1,6 +1,17 @@
 %h1 Editing direction
-
-= render 'form'
+= form_for ([@recipe, @direction]) do |f|
+  .form-group
+    .well
+      .row
+        .col-md-9
+          = f.label :instruction
+          = f.label :order
+      .row
+        .col-md-9
+          = f.text_area :instruction, rows:4, cols:60
+          =f.text_field :order
+      .form-group.extra-line
+        = f.submit 'Save', class: 'save-directions btn btn-info'
 
 
 /= link_to 'Back', recipe_directions_path

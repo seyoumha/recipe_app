@@ -1,23 +1,71 @@
-.recipe{
-	margin: 10px;
-	background-color: #3e464b;
-	padding: 20px;
-}
-.grid{
-  width: 215px;
-  float: left;
-  margin: 10px;
-  height: 350px;
-}
-.list{
-  width: 100%;
-  float: none; 
-  .info{
-    width: 100%;
+  .orange{color: #ff8200}
+  .time{
+    list-style: none;
+    font-size: 1.2em;
+  }
+  .social-media{
+    position: absolute;
+    margin: 5px 10px;
+    padding: 5px;
+    background-color: rgba(0,0,0,.4);
+    border-radius: .4;
+    .fa{
+      margin: 0 5px;
+    }
+  }
+  .prep{
     float: left;
+    padding-right: 10px;
+    padding-left: 60px;
+
   }
-  .image{
-    float: right;
-    margin: 5px; 
+  .fa-heart{
+    padding-right: 10px;
   }
-}
+  .dir-num{
+    color: #00FF00;
+    margin-top: -10px;
+  }
+  .fa-clock-o{
+    padding-left: 80px;
+  }
+  h1, h2, h3, h4, h5{
+    font-family: 'Arvo', serif;
+  }
+  .direction-step{
+    font-size: 4em;
+    color: #333;
+  }
+  .comments{
+  color: #999;
+  }
+  .recipe-image{
+    padding-top: 26px;
+  }
+  .extra-line{
+    padding-top: 15px;
+  }
+  .recipe{
+  	margin: 10px;
+  	background-color: #3e464b;
+  	padding: 20px;
+  }
+  .grid{
+    width: 215px;
+    float: left;
+    margin: 10px;
+    height: 350px;
+  }
+  .list{
+    width: 100%;
+    float: none;
+    display: inline-block; 
+    .info{
+      width: 100%;
+      float: left;
+    }
+    .image{
+      float: right;
+      margin: 5px; 
+    }
+  }

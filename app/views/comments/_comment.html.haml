@@ -1,12 +1,9 @@
-.container
-  .row
-    .col-md-4
-      .well
-        %div
-          = comment.body
-        %br
-        %div 
-          Reviewer:
-          =comment.commenter 
+.row
+  .col-md-12
+    %em
+      "#{comment.body.humanize}"
+  .col-md-12       
+    =comment.commenter.humanize 
+  
 
         

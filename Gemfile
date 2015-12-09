@@ -18,7 +18,7 @@ gem 'jquery-raty-rails', github: 'bmc/jquery-raty-rails'
 gem 'ratyrate', :github => 'wazery/ratyrate'
 # Use sqlite3 as the database for Active Record
 group :development do
-	gem 'sqlite3', '1.3.8'
+	gem 'sqlite3'
 	gem 'pry'
 	gem 'awesome_print'
 end

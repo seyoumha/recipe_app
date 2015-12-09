@@ -1,55 +1,56 @@
-.navbar-right
-	%h3.badge
-		View  
-		=link_to "  ","#", class: 'grid-view glyphicon glyphicon-th'
-		=link_to " ","#", class: 'list-view glyphicon glyphicon-th-list'
+.container
+	.navbar-right
+		%h3.badge
+			View  
+			=link_to "  ","#", class: 'grid-view glyphicon glyphicon-th'
+			=link_to " ","#", class: 'list-view glyphicon glyphicon-th-list'
 
-- if @search_recipe
-	%h4 Search Result for #{@search_recipe.titleize}
-	.container
-		- if @recipes.present?
-			- @recipes.each do |r|
-				= render "recipe", r: r
-		- else
-			%h4 Sorry, we don't have a recipe for  #{@search_recipe} at this point
+	- if @search_recipe
+		%h4 Search Result for #{@search_recipe.titleize}
+		.container
+			- if @recipes.present?
+				- @recipes.each do |r|
+					= render "recipe", r: r
+			- else
+				%h4 Sorry, we don't have a recipe for  #{@search_recipe} at this point
 
-- else
-	- if @favorited_recipes.present?
-		%h4 Your favorite Recipes
-		.container
-			- @favorited_recipes.each do |r|
-				= render "recipe", r: r
-	- if current_user && @recipes.present?
-		%h4 Your Recipes
-		.container
-			- @recipes.each do |r|
-				= render "recipe", r: r
 	- else
-		.container
-			= link_to "Create a Recipe", new_recipe_path
-			or
-			%a.search-link Search
+		- if @favorited_recipes.present?
+			%h4 Your favorite Recipes
+			.container
+				- @favorited_recipes.each do |r|
+					= render "recipe", r: r
+		- if current_user && @recipes.present?
+			%h4 Your Recipes
+			.container
+				- @recipes.each do |r|
+					= render "recipe", r: r
+		- else
+			.container
+				= link_to "Create a Recipe", new_recipe_path
+				or
+				%a.search-link Search
 
-		.container
-		- @recipes.each do |r|
-			= render "recipe", r: r
-		
-:javascript
+			.container
+			- @recipes.each do |r|
+				= render "recipe", r: r
+			
+	:javascript
 
-$(document).ready(function(){
-	$('.list-view').on('click', function(e){
-		e.preventDefault();
-		$('.recipe.grid').removeClass('grid').addClass('list');
-	});
-	$('.grid-view').on('click', function(e){
-		e.preventDefault();
-		$('.recipe.list').removeClass('list').addClass('grid');
-	});
-	$('.search-link').on('click', function(e){
-		e.preventDefault()
-		$("#search").focus()
-	});
-});						
+	$(document).ready(function(){
+		$('.list-view').on('click', function(e){
+			e.preventDefault();
+			$('.recipe.grid').removeClass('grid').addClass('list');
+		});
+		$('.grid-view').on('click', function(e){
+			e.preventDefault();
+			$('.recipe.list').removeClass('list').addClass('grid');
+		});
+		$('.search-link').on('click', function(e){
+			e.preventDefault()
+			$("#search").focus()
+		});
+	});						
 
 
 

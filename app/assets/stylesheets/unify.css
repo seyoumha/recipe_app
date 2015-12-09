@@ -9,10 +9,10 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *
- *= require style
+ * require style
  *= require ../unify/css/headers/header1.css
  *= require ../unify/css/responsive.css
- *= require font-awesome.css
+ * require font-awesome.css
  *= require ../unify/plugins/flexslider/flexslider.css
  *= require parallax-slider.css
  *= require ../unify/css/themes/default.css

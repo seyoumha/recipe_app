@@ -20,7 +20,8 @@ class RecipesController < ApplicationController
 	def show
 		@ingredients = @recipe.ingredients
 		@directions = @recipe.directions
-		@new_direction = @recipe.directions.build
+		@direction = @recipe.directions.build
+
 		@comments =  @recipe.comments.paginate(:page => params[:page])
 
 	end
@@ -57,7 +58,7 @@ class RecipesController < ApplicationController
 	private
 
 		def recipe_params
-			params.require(:recipe).permit(:title, :description, :category, :photo, :search, ingredients_attributes: [:id, :item, :amount, :unit])
+			params.require(:recipe).permit(:title, :description, :category, :photo, :search, :prep_time, :cook_time, :servings, ingredients_attributes: [:id, :item, :amount, :unit])
 		end
 		def find_recipe
 			@recipe = Recipe.find(params[:id])

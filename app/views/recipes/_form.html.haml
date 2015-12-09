@@ -6,20 +6,28 @@
         %fieldset
           .form-group
             = f.label :category, class: 'col-lg-2 control-label'
-            .col-lg-10
+            .col-md-10
               = f.text_area :category, class: 'form-control', placeholder: "ex. Indian, vegiterian, spicy"
           .form-group
             = f.label :title, class: 'col-lg-2 control-label'
-            .col-lg-10
+            .col-md-10
               = f.text_field :title, class: 'form-control'
           .form-group
             = f.label :photo, class: 'col-lg-2 control-label'
-            .col-lg-10
+            .col-md-10
               = f.file_field :photo, class: 'form-control'
           .form-group
             = f.label :description, class: 'col-lg-2 control-label'
-            .col-lg-10
+            .col-md-10
               = f.text_area :description, class: 'form-control', placeholder: "Explain your recipe"
+          .form-group
+            .col-md-12.col.col-md-offset-1
+              = f.label :prep_time, class: 'control-label'
+              = f.text_field :prep_time, size: 12, placeholder: "in minutes"
+              = f.label :cook_time, class: 'control-label'
+              = f.text_field :cook_time, size: 12, placeholder: "in minutes"
+              = f.label :servings, class: 'control-label'
+              = f.text_field :servings, size: 5
           .ingredients
             = f.fields_for :ingredients do |ff|
               - if ff.object.id?
@@ -29,12 +37,12 @@
                 .ingredient.off
                   =render 'ingredients/form', ff: ff
           .form-group
-            .col-lg-12
+            .col-md-12
               %button.btn.btn-primary.add-ingredient{type: "button"}
                 %span.glyphicon.glyphicon-plus 
                 Add Ingredients
         .form-group
-          .col-lg-12
+          .col-md-12
             = f.submit class: 'save btn btn-success btn-md btn-block'
             
 :javascript

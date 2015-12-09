@@ -1,120 +1,150 @@
 .container
-  .col-md-6
-    .row
-      .col-md-12
-        =image_tag @recipe.photo
-        %h4
-          Average Rating for 
-          =@recipe.title    
-          -@recipe.average_ratings.times do |i|
-            =image_tag("star-on.png")
-        -if current_user.rated_recipes.present? && current_user.rated_recipes.include?(@recipe.id)
-          %p.text-muted You have rated this recipe
-        -else
-          %strong Recipe Rating: 
-          .stars
-            =image_tag("star-off.png", class: 'star1')
-            =image_tag("star-off.png", class: 'star2')
-            =image_tag("star-off.png", class: 'star3')
-            =image_tag("star-off.png", class: 'star4')
-            =image_tag("star-off.png", class: 'star5')
+  .row
+    .col-md-6.recipe-image
+      .social-media
+        .fa.fa-facebook-square.fa-3x
+        .fa.fa-twitter-square.fa-3x
+        .fa.fa-pinterest-square.fa-3x
+        .fa.fa-google-plus-square.fa-3x
+      =image_tag @recipe.photo
+      .row
+        .col-md-10.col-md-offset-1.text-right
+          Recipe by #{@recipe.user.first_name.humanize}
+      -if user_signed_in? && current_user.rated_recipes.present? && current_user.rated_recipes.include?(@recipe.id)
+        %p.text-muted You have rated this recipe
+      -elsif user_signed_in?
+        %strong Rate #{@recipe.title}:
+        .stars
+          =image_tag("star-off.png", class: 'star1')
+          =image_tag("star-off.png", class: 'star2')
+          =image_tag("star-off.png", class: 'star3')
+          =image_tag("star-off.png", class: 'star4')
+          =image_tag("star-off.png", class: 'star5')
+      -if user_signed_in?
+        %h5
+          = link_to "Delete from Favorite", favorite_path(recipe_id: @recipe.id, user_id: current_user.id), method: :delete, remote: :true , id: 'delete-favorite', style: 'display: none'
+          
+          = link_to " Add to Favorite", favorite_path(@recipe), method: :put, remote: :true, id: 'add-favorite', style: 'display: none', class: 'fa fa-heart fa-1x'
         -if current_user.has_role? :admin 
           -if recipe_featured?(@recipe)
-            = link_to "Delete from Featured Recipes", featured_recipe_path(recipe_id: @recipe.id), method: :delete 
+            = link_to "Admin: Delete from Featured Recipes", featured_recipe_path(recipe_id: @recipe.id), method: :delete 
           -else
-            =link_to "Feature this Recipe", featured_recipe_path(@recipe), method: :put     
-        %h2= @recipe.title
+            =link_to "Admin: Feature this Recipe", featured_recipe_path(@recipe), method: :put    
+      -else
+        %h4
+          = link_to "Sign in to Add to Favorite", new_user_session_path
+    .col-md-6
+      .col-md-12
+        %h1.orange
+          =@recipe.title
+      .col-md-12
+        -if raters.present? 
+          -@recipe.average_ratings.times do |i|
+            =image_tag("star-on.png")
+          (#{raters} Reviews)
+      .col-md-12.extra-line
         %strong Category:
         - @recipe.tags.each do |word|
-          %span.label.label-info= word
-        %p
-        %strong Description:
-        = @recipe.description
-        -if user_signed_in?
-          %h5
-            = link_to "Delete from Favorite", favorite_path(recipe_id: @recipe.id, user_id: current_user.id), method: :delete, remote: :true , id: 'delete-favorite', style: 'display: none'
-          
-            = link_to "Add to Favorite", favorite_path(@recipe), method: :put, remote: :true, id: 'add-favorite', style: 'display: none'
+          %span.label.label-primary= word
+      .col-md-12.extra-line
+        %h4 #{@recipe.description.humanize}
+      .col-md-12
+        -if @comments.present?
+          %h5 Comments:
+          .comments
+            = render @comments
+            = will_paginate @comments#, renderer: BootstrapPagination::Rails
         -else
-          %h4
-            = link_to "Sign in to Add to Favorite", new_user_session_path
-  .col-md-6
-    .row
-      %p
-        - if @ingredients.present?
-          %h2 Ingredients
-          %table.table.table-striped.table-bordered
-            %tr
-              %th Item
-              %th Amount
-              %th Unit
-              %th
-              - @ingredients.each do |i|
-                %tr
-                  %td= i.item
-                  %td= i.amount
-                  %td= i.unit
-                  %td= link_to " Add to Shopping List", add_to_cart_path(i), class: 'glyphicon glyphicon-shopping-cart'
+          .extra-line
+            Be the first to review this recipe!
+        -if user_signed_in?
+          .extra-line
+            %button.btn.btn-warning.add-comment
+              %span.glyphicon.glyphicon-plus
+                Comment
+            .extra-line.new-comment      
+              = render "comments/form"   
+  .row.extra-line                
+    .col-md-10
+      %h2.orange Ingredients
+      - if @ingredients.present?
+        %table.table.table-striped.table-bordered
+          %tr
+            %th Item
+            %th Amount
+            %th Unit
+            %th
+            - @ingredients.each do |i|
+              %tr
+                %td= i.item
+                %td= i.amount
+                %td= i.unit
+                %td= link_to"" ,add_to_cart_path(i), title: "add to cart", class: 'glyphicon glyphicon-shopping-cart cart'
         -if @recipe.user == current_user
           =link_to "Edit Recipe ", edit_recipe_path, class: "btn btn-success btn-sm"
-.container
-  .col-md-6 
-    = will_paginate @comments#, renderer: BootstrapPagination::Rails
-    = render @comments
-    -if user_signed_in?
-      %button.btn.btn-warning.add-comment
-        %span.glyphicon.glyphicon-plus
-        Review
-      = render "comments/form"
-  .col-md-6
-    .well
-      %h4 Directions
-      %table.table.table-striped.table-bordered
-        %tr
-          %th Num.
-          %th Instruction
-          %th
-          %th
-        - @directions.each do |direction|
-          =render "directions/direction", direction: direction
-      .direction-form
-        = render 'directions/form'
-      = link_to 'Add Instructions', new_recipe_direction_path(@recipe), class: "btn btn-success btn-sm btn-block add-instruction"   
+    .col-md-10.extra-line
+      %h2.orange Directions
+      .well
+        .row
+          .col-md-1
+            %i.fa.fa-clock-o.fa-3x 
+          .col-md-11  
+            %ul.time
+              %li.prep
+                %p Prep 
+                .dir-num.text-center #{min_to_hr(@recipe.prep_time )}  
+              %li.prep
+                %p Cook 
+                .dir-num.text-center #{min_to_hr(@recipe.cook_time )}    
+              %li.prep
+                %p Ready in
+                .dir-num.text-center #{min_to_hr(@recipe.prep_time, @recipe.cook_time )}  
+              %li.prep
+                %p Serves 
+                .dir-num.text-center #{@recipe.servings}    
+        - @directions.select{|d| d.persisted?}.sort_by{|d| d.order}.each do |direction|
+          - unless direction.new_record?
+            .row.extra-line
+              .col-md-1.text-center.direction-step
+                = direction.order
+              .col-md-11
+                =render "directions/direction", direction: direction
+            .extra-line
+              
+          
+        -if current_user
+          .direction-form
+            = render 'directions/form'
+          / = link_to 'Add Instructions', new_recipe_direction_path(@recipe), class: "btn btn-success btn-sm btn-block add-instruction"   
 
 
 :javascript
   $(document).ready(function(){
-    var show_fav_link = #{current_user.has_favorited?(@recipe) ? "false" : "true"  }
+    var show_fav_link = #{current_user.has_favorited?(@recipe) ? "false" : "true" if user_signed_in?  }
     if(show_fav_link){
       $('#add-favorite').show()
     }else{
       $('#delete-favorite').show()
     }
-
     $('#add-favorite').bind('ajax:success', function() {
       $('#add-favorite').hide()
       $('#delete-favorite').show()
     });
-
     $('#delete-favorite').bind('ajax:success', function() {
       $('#add-favorite').show()
       $('#delete-favorite').hide()
     });
-
-    $('.direction-form').hide();
     $('.add-instruction').on('click', function(e){
       e.preventDefault();
       $('.direction-form').show()
     });
-
-    $('.new_comment').hide();
+    $('.new-comment').hide();
     $('.add-comment').on('click', function(e){
       e.preventDefault();
-      $('.new_comment').toggle('fade');
+      $('.new-comment').fadeToggle("slow", "linear");
     });
     
-
-
+    
     function assign_behavior(i){
       
       $('.star'+i).on('mouseover',function(e){
@@ -122,13 +152,11 @@
           $('.star'+x).prop('src', '/assets/star-on.png') 
         }  
       });
-
       $('.star'+i).on('mouseout', function(e){
         for ( var x = 1; x <= i; x++ ) {
           $('.star'+x).prop('src', '/assets/star-off.png') 
         }
       });
-
       $('.star'+i).on('click',function(e){
         $.ajax("/rate?id=#{@recipe.id}&stars="+i);
         for ( var x = 1; x <= i; x++ ) {
@@ -137,17 +165,11 @@
         } 
         $('.stars').hide()
       });
-
-
     }
     assign_behavior(1);
     assign_behavior(2);
     assign_behavior(3);
     assign_behavior(4);
     assign_behavior(5);
-
   });
-
-
-
-             
+  

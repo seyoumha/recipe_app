@@ -29,7 +29,7 @@ class Recipe < ActiveRecord::Base
 	has_many :user_favorites, dependent: :destroy, class_name: 'FavoriteRecipe'
 	# has_many :user_favorited, through: :favorite_recipes, source: :user
 
-	validates :title, :category, :description, presence: true 
+	validates :title, :category, :description, :photo, :prep_time, :cook_time, :servings, presence: true 
 	before_save do 
 		self.category = self.category.titleize if self.category
 	end
