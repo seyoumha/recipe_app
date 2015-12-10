@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'
 gem 'haml-rails'
-gem 'carrierwave'
 gem 'mini_magick'
 gem 'devise'
 gem 'acts_as_commentable'
@@ -16,6 +15,10 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'jquery-raty-rails', github: 'bmc/jquery-raty-rails' 
 gem 'ratyrate', :github => 'wazery/ratyrate'
+gem "fog", require: 'fog/aws'
+gem 'carrierwave'
+
+
 # Use sqlite3 as the database for Active Record
 group :development do
 	gem 'sqlite3'
@@ -25,6 +28,7 @@ end
 group :production  do
   gem "pg"
   gem 'rails_12factor'
+  gem 'aws-s3'
 
 end
 

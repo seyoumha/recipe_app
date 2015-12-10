@@ -1,0 +1,4 @@
+production:
+  access_key_id: AAAAAAAAAAAAAAAAAA
+  secret_access_key: BBBBBBBBBBBBBBBBBBBBBBBBBBB
+  bucket: assets.my-bucket
