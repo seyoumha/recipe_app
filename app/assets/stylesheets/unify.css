@@ -14,7 +14,7 @@
  *= require ../unify/css/responsive.css
  * require font-awesome.css
  *= require ../unify/plugins/flexslider/flexslider.css
- *= require parallax-slider.css
+ * require parallax-slider.css
  *= require ../unify/css/themes/default.css
  *= require page
  */
