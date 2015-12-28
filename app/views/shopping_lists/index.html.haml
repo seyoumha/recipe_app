@@ -21,8 +21,9 @@
           -else
             %h4 Your shopping cart is Empty
         -if @cart_items
-          .btn.btn-primary
-            = link_to 'Clear Shopping List', remove_all_from_cart_path(), method: :put
-          .btn.btn-success.navbar-right
+          .btn.btn-success
             = link_to "Print Shopping List", download_pdf_path(:format => 'pdf')
+          .btn.btn-primary.navbar-right
+            = link_to 'Clear Shopping List', remove_all_from_cart_path(), method: :put
+          
        

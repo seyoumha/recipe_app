@@ -1,11 +1,13 @@
 = form_for ([@recipe, @direction]) do |f|
   .form-group
-    .well
-      .row
-        .col-md-9
-          = f.label :instruction
-      .row
-        .col-md-9
-          = f.text_area :instruction, rows:4, cols:60
-      .form-group.extra-line
-        = f.submit 'Save', class: 'save-directions btn btn-info'
+    .col-md-12
+      = f.label :instruction, class: 'control-lable'
+  .form-group  
+    .col-md-12.hidden-xs.hidden-sm
+      = f.text_area :instruction, rows:4, cols:60, class: 'form-controll'
+    .col-md-12.hidden-md.hidden-lg
+      = f.text_area :instruction, rows:4, cols:25, class: 'form-controll'
+  .form-group
+    .col-md-2.extra-line
+      = f.submit 'Save', class: 'save-directions btn btn-info btn-md'
+  

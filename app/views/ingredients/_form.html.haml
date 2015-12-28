@@ -7,7 +7,5 @@
   = ff.label :amount, class: 'control-label col-md-2'
   .col-md-2
     = ff.text_field :amount, class: 'form-control'
-
-  /= ff.label :unit, class: 'control-label col-md-2 sr-only'
   .col-md-3
     = ff.select :unit, options_for_select(units), {prompt: "unit"} , {class: 'form-control'}
