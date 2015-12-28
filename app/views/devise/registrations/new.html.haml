@@ -21,7 +21,7 @@
             = f.label :password_confirmation, class: 'control-lable'
             = f.password_field :password_confirmation, class: 'form-control'
           .form-group
-            = f.submit "Sign up"
+            = f.submit "Sign up", class: 'btn btn-primary btn-md'
         .form-group
           = render "devise/shared/links"
     .col-md-6.hidden-xs.hidden-s

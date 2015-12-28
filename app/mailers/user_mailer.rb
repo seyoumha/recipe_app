@@ -3,7 +3,7 @@ class UserMailer < ActionMailer::Base
 
   def welcome_email(user)
   	@user = user
-  	@url = 'recipeApp.com'
-  	mail(to: @user.email, subect: 'Welcome to Recipe App')
+  	@url = 'http://in2grub.com'
+  	mail(to: @user.email, subect: 'Welcome to in2grub.com')
   end
 end

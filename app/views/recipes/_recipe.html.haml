@@ -5,10 +5,10 @@
     %p.description= truncate r.description, length: 50
     
     -if current_user && r.created_by(current_user) 
-      %h5= link_to "Delete Recipe", recipe_path(r.id), method: :delete, class: 'btn btn-danger btn-xs', confirm: "are you sure"
+      %h5= link_to "Delete Recipe", recipe_path(r.id), method: :delete, class: 'btn btn-danger btn-xs', confirm: "Delete this recipe?"
     - elsif current_user
       -if current_user.has_role? :admin
-        %h5= link_to "Delete Recipe", recipe_path(r.id), method: :delete, class: 'btn btn-danger btn-xs delete', confirm: "are you sure"
+        %h5= link_to "Delete Recipe", recipe_path(r.id), method: :delete, class: 'btn btn-danger btn-xs delete', confirm: "Delete this recipe?"
       .clearfix
     .clearfix
 

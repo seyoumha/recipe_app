@@ -1,1 +1,1 @@
-ENV['WEBSITE_URL'] = "http://in2food.com"
+ENV['WEBSITE_URL'] = "http://in2grub.com"

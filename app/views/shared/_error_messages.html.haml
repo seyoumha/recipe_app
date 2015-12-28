@@ -2,7 +2,6 @@
   #error_explanation.alert.alert-danger
     %h3
       = pluralize(target.errors.count, "error")
-      /prohibited this #{target.class.name} from being saved:
       found:
     %ul
       - target.errors.full_messages.each do |msg|

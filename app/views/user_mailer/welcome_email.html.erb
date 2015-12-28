@@ -3,14 +3,14 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Welcome to in <span class = 'orange'>2</span> food, <%= @user.first_name %></h1>
+    <h2>Welcome to in <span class = 'orange'>2</span> grub, <%= @user.first_name %></h2>
     <p>
-      You have successfully signed up to in2food.herokuapp.com,
+      You have successfully signed up to <%= link_to 'in2grub.com', 'http://www.in2grub.com' %>,
       your username is: <%= @user.email %>.<br/>
     </p>
     <p>
-      To login to the site, just follow this link: <%= @url %>.
+      <%= link_to "Log In", "#{@url}/users/sign_in" %>
     </p>
-    <p>Thanks for joining and have a great day!</p>
+    <p>Thanks for joining and happy cooking!</p> 
   </body>
 </html>
