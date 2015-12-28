@@ -1,11 +1,8 @@
 .form-group
   = ff.hidden_field :id
-  = ff.label :item, class: 'control-label col-md-2'
-  .col-md-3
-    = ff.text_field :item, class: 'form-control'
-  
-  = ff.label :amount, class: 'control-label col-md-2'
-  .col-md-2
-    = ff.text_field :amount, class: 'form-control'
+  .col-md-5
+    = ff.text_field :item, class: 'form-control', placeholder: 'item'
+  .col-md-4
+    = ff.text_field :amount, class: 'form-control', placeholder: 'amount'
   .col-md-3
     = ff.select :unit, options_for_select(units), {prompt: "unit"} , {class: 'form-control'}
