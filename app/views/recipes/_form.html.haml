@@ -1,50 +1,55 @@
 .row
   .col-lg-12
-    .well
-      = form_for @recipe, :html => {:class => 'form-horizontal',:multipart => true}  do |f|
-        = render "shared/error_messages", :target => @recipe
-        %fieldset
-          .form-group
-            = f.label :category, class: 'col-lg-2 control-label'
-            .col-md-10
-              = f.text_area :category, class: 'form-control', placeholder: "ex. Indian, vegiterian, spicy"
-          .form-group
-            = f.label :title, class: 'col-lg-2 control-label'
-            .col-md-10
-              = f.text_field :title, class: 'form-control'
-          .form-group
-            = f.label :photo, class: 'col-lg-2 control-label'
-            .col-md-10
-              = f.file_field :photo, class: 'form-control'
-          .form-group
-            = f.label :description, class: 'col-lg-2 control-label'
-            .col-md-10
-              = f.text_area :description, class: 'form-control', placeholder: "Explain your recipe"
-          .form-group
-            .col-md-12.col.col-md-offset-1
-              = f.label :prep_time, class: 'control-label'
-              = f.text_field :prep_time, size: 12, placeholder: "in minutes"
-              = f.label :cook_time, class: 'control-label'
-              = f.text_field :cook_time, size: 12, placeholder: "in minutes"
-              = f.label :servings, class: 'control-label'
-              = f.text_field :servings, size: 5
-          .ingredients
-            = f.fields_for :ingredients do |ff|
-              - if ff.object.id?
-                .ingredient.on
-                  =render 'ingredients/form', ff: ff
-              - else
-                .ingredient.off
-                  =render 'ingredients/form', ff: ff
-          .form-group
-            .col-md-12
-              %button.btn.btn-primary.add-ingredient{type: "button"}
-                %span.glyphicon.glyphicon-plus 
-                Add Ingredients
+    = form_for @recipe, :html => {:class => 'form-horizontal',:multipart => true}  do |f|
+      = render "shared/error_messages", :target => @recipe
+      %fieldset
         .form-group
-          .col-md-12
-            = f.submit class: 'save btn btn-success btn-md btn-block'
-            
+          = f.label :category, class: 'col-lg-3 control-label'
+          .col-md-9
+            = f.text_area :category, class: 'form-control', placeholder: "ex. Indian, vegiterian, spicy"
+        .form-group
+          = f.label :title, class: 'col-lg-3 control-label'
+          .col-md-9
+            = f.text_field :title, class: 'form-control'
+        .form-group
+          = f.label :photo, class: 'col-lg-3 control-label'
+          .col-md-9
+            = f.file_field :photo, class: 'form-control'
+        .form-group
+          = f.label :description, class: 'col-lg-3 control-label'
+          .col-md-9
+            = f.text_area :description, class: 'form-control', placeholder: "Explain your recipe"
+        .form-group
+          = f.label :prep_time, class: 'control-label col-md-3'
+          .col-md-4  
+            = f.text_field :prep_time, size: 12, placeholder: "in minutes", class: 'form-control'
+        .form-group      
+          = f.label :cook_time, class: 'control-label col-md-3'
+          .col-md-4  
+            = f.text_field :cook_time, size: 12, placeholder: "in minutes", class: 'form-control'
+        .form-group      
+          = f.label :servings, class: 'control-label col-md-3'
+          .col-md-4
+            = f.text_field :servings, size: 5, class: 'form-control'
+        .form-group      
+          .col-md-9.col-md-offset-3
+            .ingredients
+              = f.fields_for :ingredients do |ff|
+                - if ff.object.id?
+                  .ingredient.on
+                    =render 'ingredients/form', ff: ff
+                - else
+                  .ingredient.off
+                    =render 'ingredients/form', ff: ff
+        .form-group
+          .col-md-8.col-md-offset-3
+            %button.btn.btn-info.add-ingredient{type: "button"}
+              %span.glyphicon.glyphicon-plus 
+              Add Ingredients
+      .form-group.extra-line
+        .col-md-6.col-md-offset-3
+          = f.submit class: 'save btn btn-success btn-lg btn-block'
+          
 :javascript
 
   $(document).ready(function(){
