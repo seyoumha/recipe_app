@@ -1,0 +1,59 @@
+!!!
+%html
+  %head
+    %title in2grub
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
+      = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+      %link{:href => "https://fonts.googleapis.com/css?family=Arvo", :rel => "stylesheet", :type => "text/css"}
+        %link{:href => "https://fonts.googleapis.com/css?family=Syncopate|Ultra", :rel => "stylesheet", :type => "text/css"}
+          = javascript_include_tag "application", "data-turbolinks-track" => true
+          %link{:href => "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css", :rel => "stylesheet"}
+            = csrf_meta_tags
+  %body
+    .nav.navbar.navbar-default.navbar-fixed-top
+      .container
+        .navbar-header
+          %a.navbar-brand{:href => root_path}
+            in
+            %span{:style => "color: #ff8200"} 2
+            %b grub
+          %button.navbar-toggle.collapsed{"aria-expanded" => "false", "data-target" => "#navbar", "data-toggle" => "collapse", :type => "button"}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+        #navbar.navbar-collapse.collapse.navbar-inverse-collapse
+          %ul.nav.navbar-nav
+            %li
+              = link_to "Create a Recipe", new_recipe_path
+            - if user_signed_in?
+              %li
+                = link_to "My Recipes", recipes_path
+            - else
+              %li
+                = link_to "Recipes", recipes_path
+            %li
+              = link_to " Shopping List", shopping_lists_path, class: "glyphicon glyphicon-shopping-cart"
+          %ul.nav.navbar-nav.navbar-right
+            - if user_signed_in?
+              %li
+                = link_to current_user.first_name.humanize,  edit_user_registration_path
+              %li
+                = link_to "Sign Out", destroy_user_session_path, :method=>:delete
+              %li
+                %p
+                  = form_tag recipes_path, :method => 'get' do
+                    = text_field_tag :search, params[:search], :class=>"fcol-lg-3", :placeholder=>"Search for Recipes"
+            - else
+              %li= link_to "Sign Up", new_user_registration_path, style: 'color: #ff9606'
+              %li
+                = link_to "Sign In", new_user_session_path
+              %li
+                %p
+                  = form_tag recipes_path, :method => 'get' do
+                    = text_field_tag :search, params[:search], :class=>"fcol-lg-3", :placeholder=>"Search for Recipes"
+    %br/
+    %br/
+    %br/
+    = render 'layouts/notice'
+    %div= yield
