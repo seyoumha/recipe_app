@@ -12,7 +12,10 @@
 				- @recipes.each do |r|
 					= render "recipe", r: r
 			- else
-				%h4 Sorry, we don't have a recipe for  #{@search_recipe} at this point
+				.col.md-12.not-found-page
+					%h2.text-center Sorry we do not have #{@search_recipe.titleize} at this time.
+				.col-md-6.col-md-offset-5	
+					=link_to "Find other recipes", recipes_url, class: "btn btn-info"
 
 	- else
 		- if @favorited_recipes.present?
