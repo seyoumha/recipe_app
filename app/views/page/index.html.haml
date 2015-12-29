@@ -15,7 +15,6 @@
                             = link_to (image_tag r.photo.url(:medium)), recipe_path(r.id), class: 'image'
                         .col-md-8 
                             %h4
-                                Title:
                                 =r.title
                             by: 
                             =r.user.first_name   
@@ -23,7 +22,6 @@
                                 Category: 
                                 =r.category
                             %h5
-                                Discription: 
                                 =truncate r.description, length: 30
                             -if r.average_ratings.present?
                                 -r.average_ratings.times do |i|

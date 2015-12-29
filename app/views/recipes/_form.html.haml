@@ -4,19 +4,19 @@
       = render "shared/error_messages", :target => @recipe
       %fieldset
         .form-group
-          = f.label :category, class: 'col-lg-3 control-label'
+          = f.label :category, class: 'col-md-3 control-label'
           .col-md-9
             = f.text_area :category, class: 'form-control', placeholder: "ex. Indian, vegiterian, spicy"
         .form-group
-          = f.label :title, class: 'col-lg-3 control-label'
+          = f.label :title, class: 'col-md-3 control-label'
           .col-md-9
             = f.text_field :title, class: 'form-control'
         .form-group
-          = f.label :photo, class: 'col-lg-3 control-label'
+          = f.label :photo, class: 'col-md-3 control-label'
           .col-md-9
             = f.file_field :photo, class: 'form-control'
         .form-group
-          = f.label :description, class: 'col-lg-3 control-label'
+          = f.label :description, class: 'col-md-3 control-label'
           .col-md-9
             = f.text_area :description, class: 'form-control', placeholder: "Explain your recipe"
         .form-group

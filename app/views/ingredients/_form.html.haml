@@ -3,6 +3,25 @@
   .col-md-5
     = ff.text_field :item, class: 'form-control', placeholder: 'item'
   .col-md-4
-    = ff.text_field :amount, class: 'form-control', placeholder: 'amount'
+    = ff.text_field :amount, class: 'form-control amount', placeholder: 'amount'
   .col-md-3
     = ff.select :unit, options_for_select(units), {prompt: "unit"} , {class: 'form-control'}
+
+:javascript
+  $('.amount').on('blur', function(e){
+    var amount = $(this).val().toString();
+    
+    if (/\s/.test(amount)) {
+      var split_amount = amount.split(' ')
+      var whole_number = parseInt(split_amount[0]);
+      var fra = split_amount[1];
+      amount = (eval(fra) + whole_number)
+      $(this).val(amount)
+    } 
+    else
+        amount = eval(amount)
+        $(this).val(amount);
+  });
+
+
+  

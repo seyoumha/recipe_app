@@ -24,5 +24,7 @@ module RecipesHelper
 			h.to_s + " h " + m.to_s + " m"
 	end
 
+	
+
 
 end

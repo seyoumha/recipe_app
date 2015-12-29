@@ -77,7 +77,7 @@
             - @ingredients.each do |i|
               %tr
                 %td= i.item
-                %td= i.amount
+                %td= float_to_fraction(i.amount)
                 %td= i.unit
                 %td= link_to"" ,add_to_cart_path(i), title: "add to cart", class: 'glyphicon glyphicon-shopping-cart cart'
       -if @recipe.user == current_user
