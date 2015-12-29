@@ -1,6 +1,6 @@
 .row
   .col-md-10
-    = direction.instruction.humanize unless direction.instruction == nil
+    = direction.instruction unless direction.instruction == nil
   -if current_user 
     .col-md-1.pull-right
       = link_to "Edit", "/recipes/#{@recipe.id}/directions/#{direction.id}/edit", class: "btn btn-warning btn-xs"
