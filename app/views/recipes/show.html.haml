@@ -97,21 +97,20 @@
         .col-md-3.col-xs-6
           %li.prep Serves #{@recipe.servings}    
     .row
-      .col-md-12
+      .col-md-10
         - @directions.select{|d| d.persisted?}.sort_by{|d| d.order}.each do |direction|
           - unless direction.new_record?
             .row.extra-line
-              .col-md-1.text-center.direction-step
+              .col-md-2.text-center.direction-step
                 = direction.order
-              .col-md-11
+              .col-md-10
                 =render "directions/direction", direction: direction      
-      .row
-        .col-md-12  
-          -if current_user
-            .direction-form
-              = render 'directions/form'
-            / = link_to 'Add Instructions', new_recipe_direction_path(@recipe), class: "btn btn-success btn-sm btn-block add-instruction" 
-          .clearfix    
+        .row
+          .col-md-12.col-md-offset-1 
+            -if current_user
+              .direction-form
+                = render 'directions/form'
+            .clearfix    
 
 
 :javascript
