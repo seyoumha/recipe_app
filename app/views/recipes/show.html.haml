@@ -107,7 +107,7 @@
                 =render "directions/direction", direction: direction      
         .row
           .col-md-12.col-md-offset-1 
-            -if current_user
+            -if @recipe.user == current_user
               .direction-form
                 = render 'directions/form'
             .clearfix    

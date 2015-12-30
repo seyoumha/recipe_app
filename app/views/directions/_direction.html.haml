@@ -1,7 +1,7 @@
 .row
   .col-md-10
     = direction.instruction unless direction.instruction == nil
-  -if current_user 
+  -if @recipe.user == current_user 
     .col-md-1.pull-right
       = link_to "Edit", "/recipes/#{@recipe.id}/directions/#{direction.id}/edit", class: "btn btn-warning btn-xs"
     .col-md-1.pull-right

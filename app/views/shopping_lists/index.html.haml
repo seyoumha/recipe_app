@@ -4,21 +4,23 @@
     %span.orange List
   .row
     .col-md-8
-      %table.table
-        %tr
-          %th Item
-          %th Amount
-          %th Unit
-          %th
-        -if @cart_items
-          - @cart_items.each do |cart_item|
-            %tr
-              %td= cart_item[:item]
-              %td= float_to_fraction(cart_item[:amount])
-              %td= cart_item[:unit]
-              %td= link_to 'delete', remove_from_cart_path({item: cart_item[:item], unit: cart_item[:unit]}), method: :put, class: 'btn btn-sm btn-warning'       
-        -else
-          %h4 Your shopping cart is Empty
+      -if @cart_items
+        %table.table
+          %tr
+            %th Item
+            %th Amount
+            %th Unit
+            %th
+        - @cart_items.each do |cart_item|
+          %tr
+            %td= cart_item[:item]
+            %td= float_to_fraction(cart_item[:amount])
+            %td= cart_item[:unit]
+            %td= link_to 'delete', remove_from_cart_path({item: cart_item[:item], unit: cart_item[:unit]}), method: :put, class: 'btn btn-sm btn-warning'       
+      -else
+        %h4 Your shopping cart is Empty
+
+
     -if @cart_items
       .col-md-6.col-xs-6
         .btn.btn-success

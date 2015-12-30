@@ -63,6 +63,15 @@
   	background-color: #3e464b;
   	padding: 20px;
   }
+
+
+  @media only screen and (max-width: 600px) {
+    .grid{ 
+      width: 500px !important;
+    }
+  }
+
+
   .grid{
     width: 215px;
     float: left;

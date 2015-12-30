@@ -1,44 +1,45 @@
 .container
-    .row
-        .col-md-9   
-            .page-image
-                .col-md-12 
-                    .search-text.text-center
-                        %h1 SEARCH FOR A RECIPE
-                        = form_tag recipes_path, :method => 'get' do 
-                            =text_field_tag :search, params[:search], class: "col-md-4 col-md-offset-4 text-center", style: 'font-size: 1.5em'
-            %h2.orange Featured Recipies
-            -@featured_recipes.each do |r|
-                .well
-                    .row
-                        .col-md-4
-                            = link_to (image_tag r.photo.url(:medium)), recipe_path(r.id), class: 'image'
-                        .col-md-8 
-                            %h4
-                                =r.title
-                            by: 
-                            =r.user.first_name   
-                            %h5
-                                Category: 
-                                =r.category
-                            %h5
-                                =truncate r.description, length: 30
-                            -if r.average_ratings.present?
-                                -r.average_ratings.times do |i|
-                                    =image_tag("star-on.png")                 
-        .col-md-3       
-            .sidebar.hidden-print.well
-                %ul.nav.list-unstyled
-                    %li.list-group-item                     
-                        %h4.text-center Categories
-                        %ul.nav.nav-pills
-                        - @tags.each do |tag,count|
-                            %li
-                                %a{href: "#{recipes_path(search: tag)}"}
-                                    .tag{style: "width:175px"}
-                                        =tag
-                                        %span.badge.pull-right
-                                            =count  
-    
-                                    
-   
+  .row
+    .col-md-9   
+      .page-image
+        .col-md-12 
+          .search-text.text-center
+            %h1 SEARCH FOR A RECIPE
+            = form_tag recipes_path, :method => 'get' do 
+              =text_field_tag :search, params[:search], class: "col-md-4 col-md-offset-4 text-center", style: 'font-size: 1.5em'
+      .well.intro
+        Be inspired and inspire others.  A site for self-made chefs to experiment, create, share and enjoy. It's free to join. Browse by categories, search for your new recipe or check out our featured recipes. Happy cooking!! 
+      
+      %h2.orange
+        Featured Recipes
+      -@featured_recipes.each do |r|
+        .well
+          .row
+            .col-md-4
+              = link_to (image_tag r.photo.url(:medium)), recipe_path(r.id), class: 'image'
+            .col-md-8 
+              %h4=r.title
+              by: #{r.user.first_name}
+              %br/  
+              - r.tags.each do |t|
+                %span.pill= t
+
+
+              %h5=truncate r.description, length: 30
+              - if r.average_ratings.present?
+                -r.average_ratings.times do |i|
+                  =image_tag("star-on.png")                 
+    .col-md-3       
+      .sidebar.hidden-print.well
+        %ul.nav.list-unstyled
+          %li.list-group-item                     
+            %h4.text-center Categories
+            %ul.nav.nav-pills
+            - @tags.each do |tag,count|
+              %li
+                %a{href: "#{recipes_path(search: tag)}"}
+                  .tag
+                    =tag
+                    %span.badge.pull-right=count  
+
+                
