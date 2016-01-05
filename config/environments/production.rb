@@ -78,3 +78,9 @@ RecipeApp::Application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 end
+Rails.application.config.middleware.use ExceptionNotification::Rack,
+  :email => {
+    :email_prefix => "[PREFIX] ",
+    :sender_address => %{"exceptions" <exceptions@in2grub.com>},
+    :exception_recipients => %w{seyoumha@gmail.com}
+  }

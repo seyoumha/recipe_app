@@ -17,6 +17,7 @@ gem 'jquery-raty-rails', github: 'bmc/jquery-raty-rails'
 gem 'ratyrate', :github => 'wazery/ratyrate'
 gem "fog", require: 'fog/aws'
 gem 'carrierwave'
+gem 'exception_notification'
 
 
 # Use sqlite3 as the database for Active Record
