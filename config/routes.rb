@@ -19,12 +19,16 @@ RecipeApp::Application.routes.draw do
     #   put :favorite
     # end
   end
+  
   resources :ingredients
+
   get 'cart/add/:id' => 'shopping_lists#add', as: :add_to_cart
+  get 'cart/add_all' => 'shopping_lists#add_all', as: :add_all_to_cart
   get 'shopping_lists'=> 'shopping_lists#index', as: :shopping_lists
   put 'shopping_lists/clear(/:id)'=> 'shopping_lists#remove', as: :remove_all_from_cart
   put 'shopping_lists/delete'=> 'shopping_lists#remove', as: :remove_from_cart
   get 'shopping_lists/download_pdf'=>'shopping_lists#download_pdf', as: :download_pdf
+
 
 
   root :to => "page#index"

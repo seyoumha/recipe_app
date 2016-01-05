@@ -11,12 +11,12 @@
             %th Amount
             %th Unit
             %th
-        - @cart_items.each do |cart_item|
-          %tr
-            %td= cart_item[:item]
-            %td= float_to_fraction(cart_item[:amount])
-            %td= cart_item[:unit]
-            %td= link_to 'delete', remove_from_cart_path({item: cart_item[:item], unit: cart_item[:unit]}), method: :put, class: 'btn btn-sm btn-warning'       
+          - @cart_items.each do |cart_item|
+            %tr
+              %td= cart_item[:item]
+              %td= float_to_fraction(cart_item[:amount])
+              %td= cart_item[:unit]
+              %td= link_to 'delete', remove_from_cart_path({item: cart_item[:item], unit: cart_item[:unit]}), method: :put, class: 'btn btn-sm btn-warning'       
       -else
         %h4 Your shopping cart is Empty
 

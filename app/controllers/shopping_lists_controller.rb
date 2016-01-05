@@ -7,9 +7,17 @@ class ShoppingListsController < ApplicationController
 
   def add
     @ingredient = Ingredient.find(params[:id]) 
-    cart.add(@ingredient.id)
+    cart.add(params[:id])
     save(cart)
     redirect_to recipe_path(@ingredient.recipe), notice: 'successfully added'
+  end
+
+  def add_all
+    recipe_id = params[:rid]
+    ingredient_ids = params[:ids]
+    ingredient_ids.each{|i| cart.add(i)}
+    save(cart)
+    redirect_to recipe_path(recipe_id), notice: "successfully added #{ingredient_ids.length} ingredients"
   end
   
   def remove

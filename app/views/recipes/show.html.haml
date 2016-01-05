@@ -74,14 +74,20 @@
             %th Amount
             %th Unit
             %th
+            -ing = []
             - @ingredients.each do |i|
               %tr
                 %td= i.item
                 %td= float_to_fraction(i.amount)
                 %td= i.unit
                 %td= link_to"" ,add_to_cart_path(i), title: "add to cart", class: 'glyphicon glyphicon-shopping-cart cart'
+                -ing << i
       -if @recipe.user == current_user
         =link_to "Edit Recipe ", edit_recipe_path, class: "btn btn-success btn-sm"
+  .col-md-12.col-md-offset-10
+    
+    /= link_to "add all ingredients", @ingredients.each{|d| add_to_cart_path(d)}
+    = link_to "add all ingredients", add_all_to_cart_path(ids: @ingredients.map(&:id), rid: @recipe.id)
   .extra-line
   %h2.orange Directions
   .well
