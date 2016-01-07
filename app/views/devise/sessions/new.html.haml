@@ -5,15 +5,15 @@
         %h2.orange Sign in
         = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
           .form-group
-            = f.label :email, class: 'control-lable '
+            = f.label :email, class: 'control-lable login-font '
             = f.email_field :email, :autofocus => true, class: 'form-control'
           .form-group
-            = f.label :password, class: 'control-lable '
+            = f.label :password, class: 'control-lable login-font'
             = f.password_field :password, class: 'form-control'
           - if devise_mapping.rememberable?
             .extra-line
-              = f.check_box :remember_me
-              = f.label :remember_me
-          .extra-line= f.submit "Sign in", class: 'btn btn-primary btn-md'
+              = f.check_box :remember_me, class: "login-font"
+              = f.label :remember_me, class: "login-font"
+          .extra-line= f.submit "Sign in", class: 'btn btn-primary btn-md login-font'
         .extra-line
           = render "devise/shared/links"

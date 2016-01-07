@@ -7,8 +7,8 @@
           .fa.fa-twitter-square.fa-3x
           .fa.fa-pinterest-square.fa-3x
           .fa.fa-google-plus-square.fa-3x
-        =image_tag @recipe.photo
-      .col-md-12  
+        =image_tag @recipe.photo, class: 'img-responsive'
+      .rating-fav  
         by #{@recipe.user.first_name.humanize}
         -if user_signed_in? && current_user.rated_recipes.present? && current_user.rated_recipes.include?(@recipe.id)
           %p.text-muted You have rated this recipe
@@ -33,25 +33,25 @@
         -else
           %h4
             = link_to "Sign in to Add to Favorite", new_user_session_path
-      .col-md-12
+      .edit-recipe
         -if @recipe.user == current_user
           =link_to "Edit Recipe/Ingredients ", edit_recipe_path, class: "btn btn-success btn-sm"    
     .col-md-6.description
-      .col-md-12
+      .title
         %h1.orange
           =@recipe.title
-      .col-md-12
+      %div
         -if raters.present? 
           -@recipe.average_ratings.times do |i|
             =image_tag("star-on.png")
           (#{raters} Reviews)
-      .col-md-12
+      %div
         %strong Category:
         - @recipe.tags.each do |word|
           %span.label.label-primary= word
-      .col-md-12
+      %div
         %h4 #{@recipe.description.humanize}
-      .col-md-12
+      %div
         -if @comments.present?
           %h5 Comments:
           .comments
@@ -66,7 +66,7 @@
           .new-comment      
             = render "comments/form"
   .row                
-    .col-xs-12
+    %div
       %h2.orange Ingredients
       - if @ingredients.present?
         %table.table.table-striped.table-bordered
@@ -84,24 +84,25 @@
       .col-md-6.col-md-offset-6.text-right
         = link_to " add all ingredients", add_all_to_cart_path(ids: @ingredients.map(&:id), rid: @recipe.id), class: "fa fa-cart-plus"
   .row
-    .col-xs-12
+    %div
       %h2.orange Directions
   .row  
-    .col-md-12.col-xs-12.col-sm-12
+    %div
       .well
         .row.prep_row
           %ul.time.unstyled
-            .col-md-3.col-xs-6
-              %li.prep Prep: #{min_to_hr(@recipe.prep_time )} 
-              / .dir-num.text-center #{min_to_hr(@recipe.prep_time )}  
-            .col-md-3.col-xs-6 
-              %li.prep Cook: #{min_to_hr(@recipe.cook_time )}
-            .col-md-3.col-xs-6 
-              %li.prep Total: #{min_to_hr(@recipe.prep_time, @recipe.cook_time )}  
-            .col-md-3.col-xs-6
-              %li.prep Serves: #{@recipe.servings}    
+            %li.prep 
+              .col-md-3.col-xs-6 Prep: #{min_to_hr(@recipe.prep_time )}
+            %li.prep 
+              .col-md-3.col-xs-6 Cook: #{min_to_hr(@recipe.cook_time )}
+            %li.prep  
+              .col-md-3.col-xs-6 Total: #{min_to_hr(@recipe.prep_time, @recipe.cook_time )} 
+            %li.prep 
+              .col-md-3.col-xs-6 Serves: #{@recipe.servings}
+
+    
         .row
-          .col-md-12
+          %div
             - @directions.select{|d| d.persisted?}.sort_by{|d| d.order}.each do |direction|
               - unless direction.new_record?
                 .row.direction
@@ -111,13 +112,12 @@
                         = direction.order
                   .col-md-10
                     =render "directions/direction", direction: direction      
-            .row
-              .col-md-1
-              .col-md-11 
-                -if @recipe.user == current_user
-                  .direction-form
-                    = render 'directions/form'
-                .clearfix    
+        .row
+          %div
+            -if @recipe.user == current_user
+              .direction-form
+                = render 'directions/form'
+            .clearfix    
 
 
 :javascript

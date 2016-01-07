@@ -1,18 +1,15 @@
 = form_for ([@recipe, @recipe.comments.build]) do |f|
   .well
-    .container
-      .col-md-4
-        .well
-          .form-group
-            .row
-              = f.label :commenter
-            .row  
-              = f.text_field :commenter
-          .form-group
-            .row
-              = f.label :body
-            .row
-              = f.text_area :body
-          .form-group
-            .row
-              = f.submit 'Comment', class: "comment-btn"
+    .form-group
+      %div
+        = f.label :commenter
+      %div  
+        = f.text_field :commenter
+    .form-group
+      %div
+        = f.label :body
+      %div
+        = f.text_area :body
+    .form-group
+      %div
+        = f.submit 'Comment', class: "comment-btn"

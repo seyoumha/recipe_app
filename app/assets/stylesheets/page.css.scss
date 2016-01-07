@@ -29,9 +29,14 @@
   position: relative;
   background: transparent url(signin-img.jpg) no-repeat 0% 40%;
   .well{
-    opacity: .7;
+    opacity: .8;
   }
-  .login{padding-top: 100px;}
+
+  .login{padding-top: 100px;
+  }
+  .login-font{
+    color: white;
+  }
 }
 .page-image{
   width: 100%;
