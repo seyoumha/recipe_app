@@ -21,7 +21,11 @@ module RecipesHelper
 	def min_to_hr(cooking_time = 0, prep_time = 0)
 		h = (prep_time + cooking_time)/60
 		m = (((prep_time.to_f + cooking_time.to_f))%60).round
-			h.to_s + " h " + m.to_s + " m"
+			if h > 0 
+				h.to_s + " h " + m.to_s + " m"
+			else
+				m.to_s + "m"
+			end
 	end
 
 

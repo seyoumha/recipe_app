@@ -1,40 +1,40 @@
 .container
   .row
     .col-md-6
-      .col-md-12
-        .recipe-image.img-fluid
-          .social-media
-            .fa.fa-facebook-square.fa-3x
-            .fa.fa-twitter-square.fa-3x
-            .fa.fa-pinterest-square.fa-3x
-            .fa.fa-google-plus-square.fa-3x
-          =image_tag @recipe.photo
-      .col-md-12  
-        by #{@recipe.user.first_name.humanize}
-        -if user_signed_in? && current_user.rated_recipes.present? && current_user.rated_recipes.include?(@recipe.id)
-          %p.text-muted You have rated this recipe
-        -elsif user_signed_in?
-          %strong Rate #{@recipe.title}:
-          .stars
-            =image_tag("star-off.png", class: 'star1')
-            =image_tag("star-off.png", class: 'star2')
-            =image_tag("star-off.png", class: 'star3')
-            =image_tag("star-off.png", class: 'star4')
-            =image_tag("star-off.png", class: 'star5')
-        -if user_signed_in?
-          %h5
-            = link_to "Delete from Favorite", favorite_path(recipe_id: @recipe.id, user_id: current_user.id), method: :delete, remote: :true , id: 'delete-favorite', style: 'display: none'
-            
-            = link_to " Add to Favorite", favorite_path(@recipe), method: :put, remote: :true, id: 'add-favorite', style: 'display: none', class: 'fa fa-heart fa-1x'
-          -if current_user.has_role? :admin 
-            -if recipe_featured?(@recipe)
-              = link_to "Admin: Delete from Featured Recipes", featured_recipe_path(recipe_id: @recipe.id), method: :delete 
-            -else
-              =link_to "Admin: Feature this Recipe", featured_recipe_path(@recipe), method: :put    
-        -else
-          %h4
-            = link_to "Sign in to Add to Favorite", new_user_session_path
-    .col-md-6.description
+      .recipe-image.img-fluid
+        .social-media
+          .fa.fa-facebook-square.fa-3x
+          .fa.fa-twitter-square.fa-3x
+          .fa.fa-pinterest-square.fa-3x
+          .fa.fa-google-plus-square.fa-3x
+        =image_tag @recipe.photo
+      .row
+        .col-md-10.col-md-offset-1.text-right
+          Recipe by #{@recipe.user.first_name.humanize}
+      -if user_signed_in? && current_user.rated_recipes.present? && current_user.rated_recipes.include?(@recipe.id)
+        %p.text-muted You have rated this recipe
+      -elsif user_signed_in?
+        %strong Rate #{@recipe.title}:
+        .stars
+          =image_tag("star-off.png", class: 'star1')
+          =image_tag("star-off.png", class: 'star2')
+          =image_tag("star-off.png", class: 'star3')
+          =image_tag("star-off.png", class: 'star4')
+          =image_tag("star-off.png", class: 'star5')
+      -if user_signed_in?
+        %h5
+          = link_to "Delete from Favorite", favorite_path(recipe_id: @recipe.id, user_id: current_user.id), method: :delete, remote: :true , id: 'delete-favorite', style: 'display: none'
+          
+          = link_to " Add to Favorite", favorite_path(@recipe), method: :put, remote: :true, id: 'add-favorite', style: 'display: none', class: 'fa fa-heart fa-1x'
+        -if current_user.has_role? :admin 
+          -if recipe_featured?(@recipe)
+            = link_to "Admin: Delete from Featured Recipes", featured_recipe_path(recipe_id: @recipe.id), method: :delete 
+          -else
+            =link_to "Admin: Feature this Recipe", featured_recipe_path(@recipe), method: :put    
+      -else
+        %h4
+          = link_to "Sign in to Add to Favorite", new_user_session_path
+    .col-md-6
       .col-md-12
         %h1.orange
           =@recipe.title
@@ -64,10 +64,15 @@
               %span.glyphicon.glyphicon-plus
                 Comment
             .extra-line.new-comment      
-              = render "comments/form"
-    
-  .row                
-    .col-md-12.col-xs-12.col-sm-12
+              = render "comments/form"   
+  
+
+
+
+
+
+  .row.extra-line                
+    .col-md-12
       %h2.orange Ingredients
       - if @ingredients.present?
         %table.table.table-striped.table-bordered
@@ -76,20 +81,23 @@
             %th Amount
             %th Unit
             %th
+            -ing = []
             - @ingredients.each do |i|
               %tr
                 %td= i.item
                 %td= float_to_fraction(i.amount)
                 %td= i.unit
-                %td= link_to"" ,add_to_cart_path(i), title: "add to cart", class: 'fa fa-cart-plus cart'
+                %td= link_to"" ,add_to_cart_path(i), title: "add to cart", class: 'glyphicon glyphicon-shopping-cart cart'
       -if @recipe.user == current_user
         =link_to "Edit Recipe ", edit_recipe_path, class: "btn btn-success btn-sm"
-      .col-md-6.col-md-offset-6.text-right
-        = link_to " add all ingredients", add_all_to_cart_path(ids: @ingredients.map(&:id), rid: @recipe.id), class: "fa fa-cart-plus"
   .row
-    .col-md-12.col-xs-12.col-sm-12
+    .col-md-12.col-md-offset-10
+    
+      = link_to "add all ingredients", add_all_to_cart_path(ids: @ingredients.map(&:id), rid: @recipe.id)
+  .row.extra-line
+    .col-md-12
       %h2.orange Directions
-    .col-md-12.col-xs-12.col-sm-12
+    .col-md-12
       .well
         .row.prep_row
           %ul.time.unstyled
@@ -103,7 +111,7 @@
             .col-md-3.col-xs-6
               %li.prep Serves: #{@recipe.servings}    
         .row
-          .col-md-12
+          .col-md-10
             - @directions.select{|d| d.persisted?}.sort_by{|d| d.order}.each do |direction|
               - unless direction.new_record?
                 .row.extra-line.direction
@@ -114,8 +122,7 @@
                   .col-md-10
                     =render "directions/direction", direction: direction      
             .row
-              .col-md-1
-              .col-md-11 
+              .col-md-12.col-md-offset-1 
                 -if @recipe.user == current_user
                   .direction-form
                     = render 'directions/form'
