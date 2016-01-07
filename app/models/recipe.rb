@@ -30,7 +30,8 @@ class Recipe < ActiveRecord::Base
 	# has_many :user_favorited, through: :favorite_recipes, source: :user
 
 	validates :title, :category, :description, :photo, :prep_time, :cook_time, :servings, presence: true
-	validates :description, length: {maximum: 255} 
+	validates :description, length: {maximum: 255}
+	validates :category, length: {maximum: 255} 
 	before_save do 
 		self.category = self.category.titleize if self.category
 	end
