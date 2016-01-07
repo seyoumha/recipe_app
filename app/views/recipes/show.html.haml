@@ -1,14 +1,13 @@
 .container
   .row
     .col-md-6
-      .col-md-12
-        .recipe-image.img-fluid
-          .social-media
-            .fa.fa-facebook-square.fa-3x
-            .fa.fa-twitter-square.fa-3x
-            .fa.fa-pinterest-square.fa-3x
-            .fa.fa-google-plus-square.fa-3x
-          =image_tag @recipe.photo
+      .recipe-image
+        .social-media
+          .fa.fa-facebook-square.fa-3x
+          .fa.fa-twitter-square.fa-3x
+          .fa.fa-pinterest-square.fa-3x
+          .fa.fa-google-plus-square.fa-3x
+        =image_tag @recipe.photo
       .col-md-12  
         by #{@recipe.user.first_name.humanize}
         -if user_signed_in? && current_user.rated_recipes.present? && current_user.rated_recipes.include?(@recipe.id)
@@ -34,6 +33,9 @@
         -else
           %h4
             = link_to "Sign in to Add to Favorite", new_user_session_path
+      .col-md-12
+        -if @recipe.user == current_user
+          =link_to "Edit Recipe/Ingredients ", edit_recipe_path, class: "btn btn-success btn-sm"    
     .col-md-6.description
       .col-md-12
         %h1.orange
@@ -43,11 +45,11 @@
           -@recipe.average_ratings.times do |i|
             =image_tag("star-on.png")
           (#{raters} Reviews)
-      .col-md-12.extra-line
+      .col-md-12
         %strong Category:
         - @recipe.tags.each do |word|
           %span.label.label-primary= word
-      .col-md-12.extra-line
+      .col-md-12
         %h4 #{@recipe.description.humanize}
       .col-md-12
         -if @comments.present?
@@ -56,18 +58,15 @@
             = render @comments
             = will_paginate @comments#, renderer: BootstrapPagination::Rails
         -else
-          .extra-line
-            Be the first to review this recipe!
+          Be the first to review this recipe!
         -if user_signed_in?
-          .extra-line
-            %button.btn.btn-warning.add-comment
-              %span.glyphicon.glyphicon-plus
-                Comment
-            .extra-line.new-comment      
-              = render "comments/form"
-    
+          %button.btn.btn-warning.add-comment
+            %span.glyphicon.glyphicon-plus
+              Comment
+          .new-comment      
+            = render "comments/form"
   .row                
-    .col-md-12.col-xs-12.col-sm-12
+    .col-xs-12
       %h2.orange Ingredients
       - if @ingredients.present?
         %table.table.table-striped.table-bordered
@@ -82,13 +81,12 @@
                 %td= float_to_fraction(i.amount)
                 %td= i.unit
                 %td= link_to"" ,add_to_cart_path(i), title: "add to cart", class: 'fa fa-cart-plus cart'
-      -if @recipe.user == current_user
-        =link_to "Edit Recipe ", edit_recipe_path, class: "btn btn-success btn-sm"
       .col-md-6.col-md-offset-6.text-right
         = link_to " add all ingredients", add_all_to_cart_path(ids: @ingredients.map(&:id), rid: @recipe.id), class: "fa fa-cart-plus"
   .row
-    .col-md-12.col-xs-12.col-sm-12
+    .col-xs-12
       %h2.orange Directions
+  .row  
     .col-md-12.col-xs-12.col-sm-12
       .well
         .row.prep_row
@@ -106,7 +104,7 @@
           .col-md-12
             - @directions.select{|d| d.persisted?}.sort_by{|d| d.order}.each do |direction|
               - unless direction.new_record?
-                .row.extra-line.direction
+                .row.direction
                   .col-md-2.col-xs-12.col-sm-12.direction-step
                     .round
                       .txt-round
