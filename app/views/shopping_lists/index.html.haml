@@ -24,10 +24,15 @@
     -if @cart_items
       .col-md-6.col-xs-6
         .btn.btn-success
-          = link_to "Print Shopping List", download_pdf_path(:format => 'pdf')
+          = link_to "Download Shopping List", download_pdf_path(:format => 'pdf')
       .col-md-6.col-xs-3    
         .btn.btn-primary
           = link_to 'Clear Shopping List', remove_all_from_cart_path(), method: :put
+      -if user_signed_in?   
+        -if current_user.has_role? :admin 
+          .col-md-6.col-xs-6
+            .btn.btn-success
+              = link_to "Email Shopping List", email_pdf_path()
   .clearfix
           
        

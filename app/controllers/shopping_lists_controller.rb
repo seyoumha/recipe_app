@@ -49,6 +49,22 @@ class ShoppingListsController < ApplicationController
 
   end
 
+  def email_pdf
+    @consolidated_cart = cart.consolidated! 
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = render_to_string :pdf => "download_pdf.html.haml"
+        PdfMailer.pdf_email(pdf).deliver
+
+        send_data(pdf,
+          filename: "myShoppigList",
+          disposition: 'attachment')
+      end
+    end
+
+  end
+
 
 
   private

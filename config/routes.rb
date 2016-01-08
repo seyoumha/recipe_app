@@ -28,6 +28,7 @@ RecipeApp::Application.routes.draw do
   put 'shopping_lists/clear(/:id)'=> 'shopping_lists#remove', as: :remove_all_from_cart
   put 'shopping_lists/delete'=> 'shopping_lists#remove', as: :remove_from_cart
   get 'shopping_lists/download_pdf'=>'shopping_lists#download_pdf', as: :download_pdf
+  get 'shopping_lists/email_pdf'=>'shopping_lists#email_pdf', as: :email_pdf
 
 
 
