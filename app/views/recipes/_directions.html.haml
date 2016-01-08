@@ -1,0 +1,10 @@
+.directions
+  - @directions.select{|d| d.persisted?}.sort_by{|d| d.order}.each do |direction|
+    - unless direction.new_record?
+      .row.direction
+        .col-md-2.col-xs-12.col-sm-12.direction-step
+          .round
+            .txt-round
+              = direction.order
+        .col-md-10
+          =render "directions/direction", direction: direction      

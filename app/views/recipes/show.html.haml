@@ -40,8 +40,7 @@
           =link_to "Edit Recipe/Ingredients ", edit_recipe_path, class: "btn btn-success btn-sm"    
     .col-md-6.description
       .title
-        %h1.orange
-          =@recipe.title
+        %h1.orange= @recipe.title
       .my-recipe
         -if raters.present? 
           -@recipe.average_ratings.times do |i|
@@ -55,8 +54,8 @@
         %h4 #{@recipe.description.humanize}
       .my-recipe
         -if @comments.present?
-          %h5 Comments:
           .comments
+            %h5 Comments:
             = render @comments
             = will_paginate @comments#, renderer: BootstrapPagination::Rails
         -else
@@ -69,53 +68,23 @@
                   Comment
               .new-comment      
                 = render "comments/form"
-  .row                
-    %div
-      %h2.orange Ingredients
-      - if @ingredients.present?
-        %table.table.table-striped.table-bordered
-          %tr
-            %th Item
-            %th Amount
-            %th Unit
-            %th
-            - @ingredients.each do |i|
-              %tr
-                %td= i.item
-                %td= float_to_fraction(i.amount)
-                %td= i.unit
-                %td= link_to"" ,add_to_cart_path(i), title: "add to cart", class: 'fa fa-cart-plus cart'
-      .col-md-6.col-md-offset-6.text-right
-        = link_to " add all ingredients", add_all_to_cart_path(ids: @ingredients.map(&:id), rid: @recipe.id), class: "fa fa-cart-plus"
   .row
-    %div
+    .col-md-12
+      %h2.orange Ingredients
+      = render 'ingredients'
+      = link_to " add all ingredients", add_all_to_cart_path(ids: @ingredients.map(&:id), rid: @recipe.id), class: "fa fa-cart-plus pull-right"
+  .row
+    .col-md-12
       %h2.orange Directions
-  .row  
-    %div
       .well
-        .row.prep_row
-          %ul.time.unstyled
-            %li.prep 
-              .col-md-3.col-xs-6 Prep: #{min_to_hr(@recipe.prep_time )}
-            %li.prep 
-              .col-md-3.col-xs-6 Cook: #{min_to_hr(@recipe.cook_time )}
-            %li.prep  
-              .col-md-3.col-xs-6 Total: #{min_to_hr(@recipe.prep_time, @recipe.cook_time )} 
-            %li.prep 
-              .col-md-3.col-xs-6 Serves: #{@recipe.servings}
-
-    
-        .row
-          %div
-            - @directions.select{|d| d.persisted?}.sort_by{|d| d.order}.each do |direction|
-              - unless direction.new_record?
-                .row.direction
-                  .col-md-2.col-xs-12.col-sm-12.direction-step
-                    .round
-                      .txt-round
-                        = direction.order
-                  .col-md-10
-                    =render "directions/direction", direction: direction      
+        .container
+          .row
+            .col-md-3.col-xs-6 Prep: #{min_to_hr(@recipe.prep_time )}
+            .col-md-3.col-xs-6 Cook: #{min_to_hr(@recipe.cook_time )}
+            .col-md-3.col-xs-6 Total: #{min_to_hr(@recipe.prep_time, @recipe.cook_time )} 
+            .col-md-3.col-xs-6 Serves: #{@recipe.servings}
+      
+        = render 'directions'
         .row
           %div
             -if @recipe.user == current_user

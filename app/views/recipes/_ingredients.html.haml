@@ -1,0 +1,13 @@
+- if @ingredients.present?
+  %table.table.table-striped.table-bordered
+    %tr
+      %th Item
+      %th Amount
+      %th Unit
+      %th
+      - @ingredients.each do |i|
+        %tr
+          %td= i.item
+          %td= float_to_fraction(i.amount)
+          %td= i.unit
+          %td= link_to"" ,add_to_cart_path(i), title: "add to cart", class: 'fa fa-cart-plus cart'
