@@ -15,7 +15,8 @@ class DirectionsController < ApplicationController
         format.html { redirect_to @recipe, notice: 'Direction was successfully created.' }
         format.json { render action: 'show', status: :created, location: @direction }
       else
-        format.html { render action: 'new' }
+        
+        format.html { redirect_to recipe_path(@recipe), alert: @direction.errors.full_messages.join(',') }
         format.json { render json: @direction.errors, status: :unprocessable_entity }
       end
     end

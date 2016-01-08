@@ -5,6 +5,9 @@
     font-family: verdana;
 
   }
+  .my-recipe{
+    padding-bottom: 10px;
+  }
   .round{position: relative;
   width: 60px;
   height: 60px;
@@ -18,6 +21,18 @@
   background: #72c02c;
 
 }
+.pill{
+    font-size: .7em;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #000;
+    border-radius: 5px;
+    font-family: 'Arvo', serif;
+    background-color: #72c02c;
+    padding: 1px 5px;
+    margin: 3px;
+
+  }
 .txt-round{
   position: absolute;
   text-align: center;

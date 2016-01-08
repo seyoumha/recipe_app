@@ -8,23 +8,25 @@
           .fa.fa-pinterest-square.fa-3x
           .fa.fa-google-plus-square.fa-3x
         =image_tag @recipe.photo, class: 'img-responsive'
-      .rating-fav  
+      .my-recipe  
         by #{@recipe.user.first_name.humanize}
+      .my-recipe
         -if user_signed_in? && current_user.rated_recipes.present? && current_user.rated_recipes.include?(@recipe.id)
-          %p.text-muted You have rated this recipe
+          %p.text-muted.my-recipe You have rated this recipe
         -elsif user_signed_in?
-          %strong Rate #{@recipe.title}:
-          .stars
-            =image_tag("star-off.png", class: 'star1')
-            =image_tag("star-off.png", class: 'star2')
-            =image_tag("star-off.png", class: 'star3')
-            =image_tag("star-off.png", class: 'star4')
-            =image_tag("star-off.png", class: 'star5')
+          .my-recipe
+            %strong Rate #{@recipe.title}:
+            .stars
+              =image_tag("star-off.png", class: 'star1')
+              =image_tag("star-off.png", class: 'star2')
+              =image_tag("star-off.png", class: 'star3')
+              =image_tag("star-off.png", class: 'star4')
+              =image_tag("star-off.png", class: 'star5')
         -if user_signed_in?
           %h5
-            = link_to "Delete from Favorite", favorite_path(recipe_id: @recipe.id, user_id: current_user.id), method: :delete, remote: :true , id: 'delete-favorite', style: 'display: none'
+            = link_to "Delete from Favorite", favorite_path(recipe_id: @recipe.id, user_id: current_user.id), method: :delete, remote: :true , id: 'delete-favorite', style: 'display: none', class: 'my-recipe'
             
-            = link_to " Add to Favorite", favorite_path(@recipe), method: :put, remote: :true, id: 'add-favorite', style: 'display: none', class: 'fa fa-heart fa-1x'
+            = link_to " Add to Favorite", favorite_path(@recipe), method: :put, remote: :true, id: 'add-favorite', style: 'display: none', class: 'my-recipe fa fa-heart fa-1x'
           -if current_user.has_role? :admin 
             -if recipe_featured?(@recipe)
               = link_to "Admin: Delete from Featured Recipes", featured_recipe_path(recipe_id: @recipe.id), method: :delete 
@@ -33,38 +35,40 @@
         -else
           %h4
             = link_to "Sign in to Add to Favorite", new_user_session_path
-      .edit-recipe
+      .my-recipe
         -if @recipe.user == current_user
           =link_to "Edit Recipe/Ingredients ", edit_recipe_path, class: "btn btn-success btn-sm"    
     .col-md-6.description
       .title
         %h1.orange
           =@recipe.title
-      %div
+      .my-recipe
         -if raters.present? 
           -@recipe.average_ratings.times do |i|
             =image_tag("star-on.png")
-          (#{raters} Reviews)
-      %div
+          (#{raters})
+      .my-recipe
         %strong Category:
         - @recipe.tags.each do |word|
-          %span.label.label-primary= word
-      %div
+          %span.pill= word
+      .my-recipe
         %h4 #{@recipe.description.humanize}
-      %div
+      .my-recipe
         -if @comments.present?
           %h5 Comments:
           .comments
             = render @comments
             = will_paginate @comments#, renderer: BootstrapPagination::Rails
         -else
-          Be the first to review this recipe!
-        -if user_signed_in?
-          %button.btn.btn-warning.add-comment
-            %span.glyphicon.glyphicon-plus
-              Comment
-          .new-comment      
-            = render "comments/form"
+          -if user_signed_in?
+            %div
+              Be the first to review this recipe!
+            %div  
+              %button.btn.btn-warning.add-comment
+                %span.glyphicon.glyphicon-plus
+                  Comment
+              .new-comment      
+                = render "comments/form"
   .row                
     %div
       %h2.orange Ingredients

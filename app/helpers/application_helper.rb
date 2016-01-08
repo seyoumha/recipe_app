@@ -17,9 +17,17 @@ module ApplicationHelper
           "#{whole_number} #{amount - whole_number}"
         end
     end
-
-
   end
 
+  def alert_class name
+    case name
+    when :alert
+      'alert-danger'
+    when :notice
+      'alert-success'
+    else
+      "alert-unknown"
+    end
+  end
 
 end
