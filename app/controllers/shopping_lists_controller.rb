@@ -54,7 +54,7 @@ class ShoppingListsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        pdf = render_to_string :pdf => "download_pdf.html.haml"
+        pdf = render_to_string (action: :email_pdf, layout: => "pdf.html.haml")
         PdfMailer.pdf_email(pdf).deliver
 
         send_data(pdf,

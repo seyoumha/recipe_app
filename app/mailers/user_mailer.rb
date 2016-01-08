@@ -9,7 +9,7 @@ class UserMailer < ActionMailer::Base
 
  	def pdf_email(pdf=nil, user)
  		@user = user
- 		attachments['pdf.html.haml'] = pdf if pdf.present?
+ 		attachments['email_pdf.html.haml'] = pdf if pdf.present?
   		mail :to => '@user.email', :subject => 'in2grub Shopping List'
 	end
 end
