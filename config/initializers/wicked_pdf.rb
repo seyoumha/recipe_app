@@ -3,3 +3,4 @@ WickedPdf.config = {
   #:layout => "pdf.html",
   :exe_path => '#{Rails.root}/bin/wkhtmltopdf'
 }
+
