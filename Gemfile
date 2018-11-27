@@ -29,8 +29,12 @@ end
 group :production  do
   gem "pg"
   gem 'rails_12factor'
+<<<<<<< HEAD
   gem 'aws-s3'
 
+=======
+  ruby '2.0.0'
+>>>>>>> 571b77034a8b60d93085f1d76779a953eaf3d8b8
 end
 
 # Use SCSS for stylesheets

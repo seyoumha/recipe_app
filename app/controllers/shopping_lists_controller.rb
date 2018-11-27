@@ -50,18 +50,12 @@ class ShoppingListsController < ApplicationController
   end
 
   def email_pdf
+    @user = User.where(user_params)
     @consolidated_cart = cart.consolidated! 
-    respond_to do |format|
-      format.html
-      format.pdf do
-        pdf = render_to_string(action: :email_pdf, layout: "pdf.html.haml")
-        PdfMailer.pdf_email(pdf).deliver
-
-        send_data(pdf,
-          filename: "myShoppigList",
-          disposition: 'attachment')
-      end
-    end
+        pdf = render_to_string :pdf => "email_pdf"
+        Sendpdf.pdf_email(@user, pdf).deliver
+        flash[:notice] = 'Email has been sent!'
+        redirect_to recipes_path()
 
   end
 
@@ -69,16 +63,19 @@ class ShoppingListsController < ApplicationController
 
   private
 
-  def cart
-    unless cart = session[:cart]
-      cart = ShoppingCart.new 
+    def cart
+      unless cart = session[:cart]
+        cart = ShoppingCart.new 
+        session[:cart] = cart 
+      end
+      cart
+    end
+    
+    def save(cart)
       session[:cart] = cart 
     end
-    cart
-  end
-  
-  def save(cart)
-    session[:cart] = cart 
-  end
+    def user_params
+      params.permit(:id)
+    end
   
 end

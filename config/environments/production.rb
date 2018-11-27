@@ -1,6 +1,6 @@
 RecipeApp::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-
+  config.action_mailer.default_url_options = { :host => 'http://in2food.herokuapp.com' }
   # Code is not reloaded between requests.
   config.cache_classes = true
 
@@ -63,10 +63,26 @@ RecipeApp::Application.configure do
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
+<<<<<<< HEAD
   #config.action_mailer.raise_delivery_errors = false
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
+=======
+  # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address        => 'mail.gmail.com',
+    :port           => '25',
+    :authentication => :plain,
+    :user_name      => 'seyoumha@gmail.com',
+    :password       => ENV['SMTP_PASSWORD'],
+    :domain         => 'heroku.com',
+    :enable_starttls_auto => true
+  }
+>>>>>>> 571b77034a8b60d93085f1d76779a953eaf3d8b8
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found).

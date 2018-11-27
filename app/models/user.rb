@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-  after_create :send_welcome_email
+  #after_create :send_welcome_email
   has_many :recipes
   has_many :favorite_recipes
   has_many :favorited_recipes, through: :favorite_recipes, source: :recipe
