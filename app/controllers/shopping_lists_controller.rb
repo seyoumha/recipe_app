@@ -65,7 +65,7 @@ class ShoppingListsController < ApplicationController
 
     def cart
       unless cart = session[:cart]
-        cart = ShoppingCart.new 
+        cart = ShoppingCart.send(:new) 
         session[:cart] = cart 
       end
       cart
